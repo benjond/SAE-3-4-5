@@ -21,7 +21,7 @@ def auth_login_post():
     login = request.form.get('login')
     password = request.form.get('password')
     tuple_select = (login)
-    sql = "SELECT login,role,id_utilisateur,password FROM utilisateur WHERE login=%s"
+    sql = "SELECT , login,role,id_utilisateur,password FROM utilisateur WHERE login=%s"
     retour = mycursor.execute(sql, (login))
     user = mycursor.fetchone()
     if user:
@@ -53,18 +53,20 @@ def auth_signup_post():
     email = request.form.get('email')
     login = request.form.get('login')
     password = request.form.get('password')
+    nom = request.form.get('nom')
+    est_actif = request.form.get('est_actif')
     tuple_select = (login, email)
     sql = "SELECT * FROM utilisateur WHERE login=%s OR email=%s"
     retour = mycursor.execute(sql, tuple_select)
     user = mycursor.fetchone()
     if user:
-        flash(u'votre adresse Email ou  votre Login existe déjà', 'alert-warning')
+        flash(u'Votre adresse Email ou votre Login existe déjà', 'alert-warning')
         return redirect('/signup')
 
-    # ajouter un nouveau user
+    # Add a new user
     password = generate_password_hash(password, method='pbkdf2:sha256')
-    tuple_insert = (login, email, password, 'ROLE_client')
-    sql = """INSERT INTO utilisateur (login, email, password, role) VALUES (%s, %s, %s, %s)"""
+    tuple_insert = (login, email, password, 'ROLE_client', nom, est_actif)
+    sql = """INSERT INTO utilisateur (login, email, password, role, nom, est_actif) VALUES (%s, %s, %s, %s, %s, %s)"""
     mycursor.execute(sql, tuple_insert)
     get_db().commit()
     sql = """SELECT last_insert_id() AS last_insert_id;"""
@@ -79,6 +81,7 @@ def auth_signup_post():
     session['role'] = 'ROLE_client'
     session['id_user'] = id_user
     return redirect('/client/article/show')
+
 
 
 @auth_security.route('/logout')
