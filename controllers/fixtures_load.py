@@ -28,16 +28,10 @@ def fct_fixtures_load():
     '''
     mycursor.execute(sql)
     sql=''' 
-    INSERT INTO utilisateur(id_utilisateur,login,email,password,role,nom,est_actif) VALUES
-(1,'admin','admin@admin.fr',
-    'pbkdf2:sha256:1000000$eQDrpqICHZ9eaRTn$446552ca50b5b3c248db2dde6deac950711c03c5d4863fe2bd9cef31d5f11988',
-    'ROLE_admin','admin','1'),
-(2,'client','client@client.fr',
-    'pbkdf2:sha256:1000000$jTcSUnFLWqDqGBJz$bf570532ed29dc8e3836245f37553be6bfea24d19dfb13145d33ab667c09b349',
-    'ROLE_client','client','1'),
-(3,'client2','client2@client2.fr',
-    'pbkdf2:sha256:1000000$qDAkJlUehmaARP1S$39044e949f63765b785007523adcde3d2ad9c2283d71e3ce5ffe58cbf8d86080',
-    'ROLE_client','client2','1');
+    INSERT INTO utilisateur(id_utilisateur,login,email,password,role,nom,est_actif) VALUES 
+    (1,'admin','admin@admin.fr','pbkdf2:sha256:1000000$eQDrpqICHZ9eaRTn$446552ca50b5b3c248db2dde6deac950711c03c5d4863fe2bd9cef31d5f11988','ROLE_admin','admin','1'), 
+    (2,'client','client@client.fr','pbkdf2:sha256:1000000$jTcSUnFLWqDqGBJz$bf570532ed29dc8e3836245f37553be6bfea24d19dfb13145d33ab667c09b349','ROLE_client','client','1'),
+    (3,'client2','client2@client2.fr','pbkdf2:sha256:1000000$qDAkJlUehmaARP1S$39044e949f63765b785007523adcde3d2ad9c2283d71e3ce5ffe58cbf8d86080','ROLE_client','client2','1');
     '''
     mycursor.execute(sql)
 
@@ -51,7 +45,7 @@ def fct_fixtures_load():
     '''
     mycursor.execute(sql)
     sql=''' 
-INSERT INTO type_gant()
+    INSERT INTO type_gant(id_type_gant, libelle) VALUES;
     '''
     mycursor.execute(sql)
 
@@ -65,7 +59,7 @@ INSERT INTO type_gant()
     '''
     mycursor.execute(sql)
     sql = ''' 
-INSERT INTO etat ()
+    INSERT INTO etat(etat_id, libelle) VALUES;
      '''
     mycursor.execute(sql)
 
@@ -81,6 +75,7 @@ INSERT INTO etat ()
         type_gant_id INT NOT NULL,
         fournisseur INT NOT NULL,
         marque VARCHAR(255) NOT NULL,
+        image VARCHAR(255) NOT NULL,
         CONSTRAINT fk_gant_taille FOREIGN KEY (taille_id) REFERENCES taille(id_taille),
         CONSTRAINT fk_gant_type_gant FOREIGN KEY (type_gant_id) REFERENCES type_gant(id_type_gant)
 
@@ -88,7 +83,7 @@ INSERT INTO etat ()
      '''
     mycursor.execute(sql)
     sql = ''' 
-    INSERT INTO article ()
+    INSERT INTO gant(id_gant, nom_gant, poids, couleur, prix_gant, taille_id, type_gant_id, fournisseur, marque, image) VALUES;
          '''
     mycursor.execute(sql)
 
@@ -103,7 +98,7 @@ INSERT INTO etat ()
     '''
     mycursor.execute(sql)
     sql = '''
-    INSERT INTO taille ()
+    INSERT INTO taille(id_taille, num_taille_fr, taille_us, tour_de_main) VALUES;
     '''
     mycursor.execute(sql)
 
@@ -121,7 +116,7 @@ INSERT INTO etat ()
      '''
     mycursor.execute(sql)
     sql = ''' 
-    INSERT INTO commande 
+    INSERT INTO commande(id_commande, date_achat, id_utilisateur, etat_id) VALUES;
                  '''
     mycursor.execute(sql)
 
@@ -138,7 +133,7 @@ INSERT INTO etat ()
          '''
     mycursor.execute(sql)
     sql = ''' 
-    INSERT INTO ligne_commande ()
+    INSERT INTO ligne_commande(commande_id, gant_id, prix, quantite) VALUES;
          '''
     mycursor.execute(sql)
 
@@ -153,6 +148,10 @@ INSERT INTO etat ()
         CONSTRAINT fk_ligne_panier_gant FOREIGN KEY (gant_id) REFERENCES gant(id_gant)
     );  
          '''
+    mycursor.execute(sql)
+    sql = '''
+    INSERT INTO ligne_panier(utilisateur_id, gant_id, quantite, date_ajout) VALUES;
+    '''
     mycursor.execute(sql)
 
 
