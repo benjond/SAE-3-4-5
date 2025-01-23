@@ -1,30 +1,30 @@
 {% extends 'admin/layout_admin.html' %}
 
 {% block title %}
-    <title>afficher les types d'article</title>
+    <title>afficher les types de gant</title>
 {% endblock %}
 
 {% block body %}
-<h3>Déclinaison et/ou type d'article (catégorie)</h3>
-<a class="btn btn-outline-success" href="/admin/type-article/add">ajouter un type d'article</a>
+<h3>Déclinaison et/ou type de gant (catégorie)</h3>
+<a class="btn btn-outline-success" href="/admin/type-article/add">ajouter un type de gant</a>
 <br><br>
 
 <table class="table">
     <thead class="thead-dark">
         <tr>
-           <th>designation</th> <th>(id_type_article)</th><th>nombre d'articles</th><th>opération</th>
+           <th>designation</th> <th>(id_type_gant)</th><th>nombre de gant</th><th>opération</th>
         </tr>
     </thead>
     <tbody>
-    {% if types_article | length >= 1 %}
-        {% for ligne in types_article %}
+    {% if types_gant | length >= 1 %}
+        {% for ligne in types_gant %}
            <tr>
-                  <td>{{ ligne.libelle }}</td>
-                  <td>{{ ligne.id_type_article }}</td>
+                  <td>{{ ligne.nom_type_gant }}</td>
+                  <td>{{ ligne.id_type_gant }}</td>
                    <td><span style="color: red">{{ ligne.nbr_articles }}</span></td>
                   <td>
-                      <a class="btn btn-outline-danger" href="/admin/type-article/edit?id_type_article={{ ligne.id_type_article }}">editer</a>&nbsp;
-                      <a class="btn btn-outline-warning" href="/admin/type-article/delete?id_type_article={{ ligne.id_type_article }}">supprimer</a>
+                      <a class="btn btn-outline-danger" href="/admin/type-article/edit?id_type_article={{ ligne.id_type_gant }}">editer</a>&nbsp;
+                      <a class="btn btn-outline-warning" href="/admin/type-article/delete?id_type_article={{ ligne.id_type_gant }}">supprimer</a>
                   </td>
            </tr>
         {% endfor %}
