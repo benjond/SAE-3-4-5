@@ -45,7 +45,11 @@ def fct_fixtures_load():
     '''
     mycursor.execute(sql)
     sql=''' 
-    INSERT INTO type_gant(id_type_gant, libelle) VALUES;
+    INSERT INTO type_gant(id_type_gant, libelle) VALUES 
+    (NULL,'Boxe'),
+    (NULL, 'Ski'),
+    (NULL, 'Golf'),
+    (NULL, 'Jaradinage');
     '''
     mycursor.execute(sql)
 
@@ -59,7 +63,11 @@ def fct_fixtures_load():
     '''
     mycursor.execute(sql)
     sql = ''' 
-    INSERT INTO etat(etat_id, libelle) VALUES;
+    INSERT INTO etat(etat_id, libelle) VALUES 
+    (1,'En attente'),
+    (2,'En cours de préparation'),
+    (3,'Expédiée'),
+    (4,'Livrée');
      '''
     mycursor.execute(sql)
 
@@ -98,7 +106,15 @@ def fct_fixtures_load():
     '''
     mycursor.execute(sql)
     sql = '''
-    INSERT INTO taille(id_taille, num_taille_fr, taille_us, tour_de_main) VALUES;
+    INSERT INTO taille(id_taille, num_taille_fr, taille_us, tour_de_main) VALUES  
+    (1,6.5,'NULL','S',17.5),
+    (2,7,'NULL','M',19),
+    (3,7.5,'NULL','L',20),
+    (4,8,'S','XL',21.5),
+    (5,8.5,'M','XXL',23),
+    (6,9,'L','NULL',24),
+    (7,9.5,'XL','NULL',25.5),
+    (8,10,'XXL','NULL',27);
     '''
     mycursor.execute(sql)
 
