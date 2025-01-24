@@ -15,23 +15,22 @@ def fct_fixtures_load():
 
     mycursor.execute(sql)
     sql='''
-    CREATE TABLE utilisateur(
-        id_utilisateur INT AUTO_INCREMENT,
-        login VARCHAR(255),
-        email VARCHAR(255),
-        password VARCHAR(255),
-        role boolean,
-        nom VARCHAR(255),
-        est_actif boolean,
-        PRIMARY KEY (id_utilisateur)
-    )  DEFAULT CHARSET utf8;  
+    CREATE TABLE utilisateur (
+                                 id_utilisateur INT PRIMARY KEY AUTO_INCREMENT,
+                                 login VARCHAR(255) NOT NULL,
+                                 email VARCHAR(255) NOT NULL,
+                                 nom VARCHAR(255) NOT NULL,
+                                 password VARCHAR(255) NOT NULL,
+                                 role VARCHAR(255) NOT NULL,
+                                 est_actif BOOLEAN NOT NULL
+    ) DEFAULT CHARSET utf8;
     '''
     mycursor.execute(sql)
     sql=''' 
     INSERT INTO utilisateur(id_utilisateur,login,email,password,role,nom,est_actif) VALUES 
-    (1,'admin','admin@admin.fr','pbkdf2:sha256:1000000$eQDrpqICHZ9eaRTn$446552ca50b5b3c248db2dde6deac950711c03c5d4863fe2bd9cef31d5f11988','1','admin','1'),
-    (2,'client','client@client.fr','pbkdf2:sha256:1000000$jTcSUnFLWqDqGBJz$bf570532ed29dc8e3836245f37553be6bfea24d19dfb13145d33ab667c09b349','0','client','1'),
-    (3,'client2','client2@client2.fr','pbkdf2:sha256:1000000$qDAkJlUehmaARP1S$39044e949f63765b785007523adcde3d2ad9c2283d71e3ce5ffe58cbf8d86080','0','client2','1');
+    (1,'admin','admin@admin.fr','pbkdf2:sha256:1000000$eQDrpqICHZ9eaRTn$446552ca50b5b3c248db2dde6deac950711c03c5d4863fe2bd9cef31d5f11988','ROLE_admin','admin','1'),
+    (2,'client','client@client.fr','pbkdf2:sha256:1000000$jTcSUnFLWqDqGBJz$bf570532ed29dc8e3836245f37553be6bfea24d19dfb13145d33ab667c09b349','ROLE_client','client','1'),
+    (3,'client2','client2@client2.fr','pbkdf2:sha256:1000000$qDAkJlUehmaARP1S$39044e949f63765b785007523adcde3d2ad9c2283d71e3ce5ffe58cbf8d86080','ROLE_client','client2','1');
     '''
     mycursor.execute(sql)
 

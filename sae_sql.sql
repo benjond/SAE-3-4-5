@@ -124,17 +124,17 @@ INSERT INTO gant(id_gant,nom_gant,poids,couleur,prix_gant,taille_id,type_gant_id
                                                                                                                (NULL,'Gants moto Alpinestars','146','Vert / Noir','35.10','3','1','1 ','Alpinestars ','gant_moto3.jpg'),
                                                                                                                (NULL,'Gants Ixon RS RISE AIR','169','Noir / Rouge','56.96','4','1','1','Ixon','gant_moto4.jpg'),
                                                                                                                (NULL,'Gants cuir/textile Bering Austral GTX','198','marine/gris/rouge','94','5','1','1','Bering ','gant_moto5.webp'),
-                                                                                                                    (NULL,'HERCULE','134','Beige/rouge','140','2','2','1','CimAlp','gant_ski1.jpg'),
+                                                                                                               (NULL,'HERCULE','134','Beige/rouge','140','2','2','1','CimAlp','gant_ski1.jpg'),
                                                                                                                (NULL,'Gants de Ski Hiver Tactiles Imperméables ','175','Gris','85','3','2','1','Body Technology','gant_ski2.webp'),
                                                                                                                (NULL,'GANTS DE SKI HOMME REUSH SNOW SPIRIT GORE-TEX ','170','Noir','45','2','2','1','REUSH','gant_ski3.avif'),
                                                                                                                (NULL,'Gants de ski chauds adulte  ','120','blanc','25','7','2','1','Wedze','gant_ski4.avif'),
                                                                                                                (NULL,'Gants de ski chauffants EVO-2 Adulte ','120','Noir/rouge','149','1','2','1','G-Heat','gant_ski5.avif'),
-                                                                                                                    (NULL,'Gant golf droitier Footjoy Homme - Gtxreme','134','Blanc','21','2','3','1','FootJoy','gant_golf1.avif'),
+                                                                                                               (NULL,'Gant golf droitier Footjoy Homme - Gtxreme','134','Blanc','21','2','3','1','FootJoy','gant_golf1.avif'),
                                                                                                                (NULL,'GANT GOLF STRATUS DROITIER HOMME ','189','Blanc','17','6','3','1','Taylormade','gant_golf2.avif'),
                                                                                                                (NULL,'Paire de gants golf pluie homme - RW ','170','Noir','15','8','3','1','Inesis','gant_golf3.avif'),
                                                                                                                (NULL,'Gant Aditech 24','168','blanc','20','5','3','1','Adidas','gant_golf4.avif'),
                                                                                                                (NULL,'Nike Tech Extreme 7','120','Blanc/Noir','24.99','1','3','1','Nike','gant_golf5.webp'),
-                                                                                                                    (NULL,'Gant de travail jardinier - SOLIDUR CERCIS GA08','42','Beige / Noir','16.25','1','4','1','Solidur','gant_jardinage1.jpg'),
+                                                                                                               (NULL,'Gant de travail jardinier - SOLIDUR CERCIS GA08','42','Beige / Noir','16.25','1','4','1','Solidur','gant_jardinage1.jpg'),
                                                                                                                (NULL,'Paire de gants pour les travaux de jardinage latex, T 6 ','67','vert','4.19','3','4','1','GEOLIA','gant_jardinage2.webp'),
                                                                                                                (NULL,'GANTS DE JARDIN SPECIAL EPINEUX','78','vert','7.76','6','4','1','Europapa','gant_jardinage3.jpg'),
                                                                                                                (NULL,'WZQH Gants De Travail En Cuir Pour Hommes Ou Femmes','92',' Café/gris','11.99','7','4','1','WZQH','gant_jardinagef4.jpg'),
@@ -145,20 +145,20 @@ INSERT INTO gant(id_gant,nom_gant,poids,couleur,prix_gant,taille_id,type_gant_id
 
 
 INSERT INTO commande(id_commande, date_achat, utilisateur_id, etat_id) VALUES
-                                                                            (2, '2023-12-15', 3, 2),
-                                                                            (3, '2024-01-10', 2, 3);
+                                                                           (2, '2023-12-15', 3, 2),
+                                                                           (3, '2024-01-10', 2, 3);
 
 INSERT INTO ligne_commande(commande_id, gant_id, prix, quantite) VALUES
-                                                                        (2, 6, 140, 1), -- Commande d'un gant de ski "HERCULE" pour 140 €
-                                                                        (2, 8, 56.96, 2), -- Commande de 2 paires de gants moto Ixon
-                                                                        (3, 12, 15, 3), -- Commande de 3 paires de gants de golf "RW"
-                                                                        (3, 18, 11.99, 4); -- Commande de 4 paires de gants de jardin "WZQH"
+                                                                     (2, 6, 140, 1), -- Commande d'un gant de ski "HERCULE" pour 140 €
+                                                                     (2, 8, 56.96, 2), -- Commande de 2 paires de gants moto Ixon
+                                                                     (3, 12, 15, 3), -- Commande de 3 paires de gants de golf "RW"
+                                                                     (3, 18, 11.99, 4); -- Commande de 4 paires de gants de jardin "WZQH"
 
-INSERT INTO ligne_INSERT INTO ligne_panier(utilisateur_id, gant_id, quantite, date_ajout) VALUES
-                                                                                                (3, 7, 1, '2024-01-11'), -- L'utilisateur 3 ajoute un gant de ski chauffant
-                                                                                                (3, 16, 2, '2024-01-11'), -- L'utilisateur 3 ajoute 2 paires de gants de jardin "Europapa"
-                                                                                                (2, 4, 1, '2024-01-10'), -- L'utilisateur 2 ajoute un gant moto "Ixon"
-                                                                                                (2, 14, 1, '2024-01-10'); -- L'utilisateur 2 ajoute un gant de golf "Nike"
+INSERT INTO ligne_panier(utilisateur_id, gant_id, quantite, date_ajout) VALUES
+                                                                            (3, 7, 1, '2024-01-11'), -- L'utilisateur 3 ajoute un gant de ski chauffant
+                                                                            (3, 16, 2, '2024-01-11'), -- L'utilisateur 3 ajoute 2 paires de gants de jardin "Europapa"
+                                                                            (2, 4, 1, '2024-01-10'), -- L'utilisateur 2 ajoute un gant moto "Ixon"
+                                                                            (2, 14, 1, '2024-01-10'); -- L'utilisateur 2 ajoute un gant de golf "Nike"
 
 
 

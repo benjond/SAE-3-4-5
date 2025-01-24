@@ -7,11 +7,11 @@ def get_db():
     if db is None:
         #
         db = g._database = pymysql.connect(
-            host="localhost",
-            # host="serveurmysql",
-            user="login",
-            password="secret",
-            database="BDD_login_sae",
+            host="serveurmysql.iut-bm.univ-fcomte.fr",
+            # host="serveurmysql.iut-bm.univ-fcomte.fr",
+            user="bjond",
+            password="mdp",
+            database="BDD_bjond",
             charset='utf8mb4',
             cursorclass=pymysql.cursors.DictCursor
         )
