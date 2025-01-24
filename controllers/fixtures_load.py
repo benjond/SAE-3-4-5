@@ -111,32 +111,32 @@ def fct_fixtures_load():
      '''
     mycursor.execute(sql)
     sql = ''' 
-    INSERT INTO gant(id_gant, nom_gant, poids, couleur, prix_gant, taille_id, type_gant_id, fournisseur, marque, image) VALUES
-    (1,'Gant de boxe',0.5,'rouge',50,1,1,1,'Everlast','gant_boxe.jpg'),
-    (2,'Gant de ski',0.6,'bleu',60,2,2,2,'Rossignol','gant_ski.jpg'),
-    (3,'Gant de golf',0.7,'vert',70,3,3,3,'Titleist','gant_golf.jpg'),
-    (4,'Gant de jaradinage',0.8,'jaune',80,4,4,4,'Gardena','gant_jardinage.jpg'),
-    (5,'Gant de jaradinage',0.8,'jaune',80,4,4,4,'Gardena','gant_jardinage.jpg'),
-    (6,'Gants moto dainese ','120','Noir/rouge','85','1','1','1','dainese','1','gant_moto1.jpg'),
-    (7,'Gants moto DXR GAMEPAD','134','Noire','25.12','2','1','1','DXR','1','gant_moto2.jpg'),
-    (8,'Gants moto Alpinestars','146','Vert / Noir','35.10','3','1','1 ','Alpinestars ','1','gant_moto3.jpg'),
-    (9,'Gants Ixon RS RISE AIR','169','Noir / Rouge','56.96','4','1','1','Ixon','1','gant_moto4.jpg'),
-    (10,'Gants cuir/textile Bering Austral GTX','198','marine/gris/rouge','94','5','1','1','Bering ','1','gant_moto5.webp'),
-    (11,'HERCULE','134','Beige/rouge','140','2','2','1','CimAlp','1','gant_ski1.jpg'),
-    (12,'Gants de Ski Hiver Tactiles Imperméables ','175','Gris','85','3','2','1','Body Technology','1','gant_ski2.webp'),
-    (13,'GANTS DE SKI HOMME REUSH SNOW SPIRIT GORE-TEX ','170','Noir','45','2','2','1','REUSH','1','gant_ski3.avif'),
-    (14,'Gants de ski chauds adulte  ','120','blanc','25','7','2','1','Wedze','1','gant_ski4.avif'),
-    (15,'Gants de ski chauffants EVO-2 Adulte ','120','Noir/rouge','149','1','2','1','G-Heat','1','gant_ski5.avif'),
-    (16,'Gant golf droitier Footjoy Homme - Gtxreme','134','Blanc','21','2','3','1','FootJoy','1','gant_golf1.avif'),
-    (17,'GANT GOLF STRATUS DROITIER HOMME ','189','Blanc','17','6','3','1','Taylormade','1','gant_golf2.avif'),
-    (18,'Paire de gants golf pluie homme - RW ','170','Noir','15','8','3','1','Inesis','1','gant_golf3.avif'),
-    (19,'Gant Aditech 24','168','blanc','20','5','3','1','Adidas','1','gant_golf4.avif'),
-    (20,'Nike Tech Extreme 7','120','Blanc/Noir','24.99','1','3','1','Nike','1','gant_golf5.webp'),
-    (21,'Gant de travail jardinier - SOLIDUR CERCIS GA08','42','Beige / Noir','16.25','1','4','1','Solidur','1','gant_jardinage1.jpg'),
-    (22,'Paire de gants pour les travaux de jardinage latex, T 6 ','67','vert','4.19','3','4','1','GEOLIA','1','gant_jardinage2.webp'),
-    (23,'GANTS DE JARDIN SPECIAL EPINEUX','78','vert','7.76','6','4','1','Europapa','1','gant_jardinage3.jpg'),
-    (24,'WZQH Gants De Travail En Cuir Pour Hommes Ou Femmes','92',' Café/gris','11.99','7','4','1','WZQH','1','gant_jardinagef4.jpg'),
-    (25,'Gants imprimés de jardinage','51','Noir/Marron','12.08','1','4','1','sans-marque','1','gant_jardinage5.jpg');
+    INSERT INTO gant(id_gant, nom_gant, poids, couleur, prix_gant, taille_id, type_gant_id, fournisseur, marque, stock, image) VALUES
+    (1,'Gant de boxe',0.5,'rouge',50,1,1,1,'Everlast',0,'gant_boxe.jpg'),
+    (2,'Gant de ski',0.6,'bleu',60,2,2,2,'Rossignol',0,'gant_ski.jpg'),
+    (3,'Gant de golf',0.7,'vert',70,3,3,3,'Titleist',0,'gant_golf.jpg'),
+    (4,'Gant de jaradinage',0.8,'jaune',80,4,4,4,'Gardena',0,'gant_jardinage.jpg'),
+    (5,'Gant de jaradinage',0.8,'jaune',80,4,4,4,'Gardena',0,'gant_jardinage.jpg'),
+    (6,'Gants moto dainese ','120','Noir/rouge','85','1','1','1','dainese',1,'gant_moto1.jpg'),
+    (7,'Gants moto DXR GAMEPAD','134','Noire','25.12','2','1','1','DXR',1,'gant_moto2.jpg'),
+    (8,'Gants moto Alpinestars','146','Vert / Noir','35.10','3','1','1 ','Alpinestars ',1,'gant_moto3.jpg'),
+    (9,'Gants Ixon RS RISE AIR','169','Noir / Rouge','56.96','4','1','1','Ixon',1,'gant_moto4.jpg'),
+    (10,'Gants cuir/textile Bering Austral GTX','198','marine/gris/rouge','94','5','1','1','Bering ',1,'gant_moto5.webp'),
+    (11,'HERCULE','134','Beige/rouge','140','2','2','1','CimAlp',1,'gant_ski1.jpg'),
+    (12,'Gants de Ski Hiver Tactiles Imperméables ','175','Gris','85','3','2','1','Body Technology',1,'gant_ski2.webp'),
+    (13,'GANTS DE SKI HOMME REUSH SNOW SPIRIT GORE-TEX ','170','Noir','45','2','2','1','REUSH',1,'gant_ski3.avif'),
+    (14,'Gants de ski chauds adulte  ','120','blanc','25','7','2','1','Wedze',1,'gant_ski4.avif'),
+    (15,'Gants de ski chauffants EVO-2 Adulte ','120','Noir/rouge','149','1','2','1','G-Heat',1,'gant_ski5.avif'),
+    (16,'Gant golf droitier Footjoy Homme - Gtxreme','134','Blanc','21','2','3','1','FootJoy',1,'gant_golf1.avif'),
+    (17,'GANT GOLF STRATUS DROITIER HOMME ','189','Blanc','17','6','3','1','Taylormade',1,'gant_golf2.avif'),
+    (18,'Paire de gants golf pluie homme - RW ','170','Noir','15','8','3','1','Inesis',1,'gant_golf3.avif'),
+    (19,'Gant Aditech 24','168','blanc','20','5','3','1','Adidas',1,'gant_golf4.avif'),
+    (20,'Nike Tech Extreme 7','120','Blanc/Noir','24.99','1','3','1','Nike',1,'gant_golf5.webp'),
+    (21,'Gant de travail jardinier - SOLIDUR CERCIS GA08','42','Beige / Noir','16.25','1','4','1','Solidur',1,'gant_jardinage1.jpg'),
+    (22,'Paire de gants pour les travaux de jardinage latex, T 6 ','67','vert','4.19','3','4','1','GEOLIA',1,'gant_jardinage2.webp'),
+    (23,'GANTS DE JARDIN SPECIAL EPINEUX','78','vert','7.76','6','4','1','Europapa',1,'gant_jardinage3.jpg'),
+    (24,'WZQH Gants De Travail En Cuir Pour Hommes Ou Femmes','92',' Café/gris','11.99','7','4','1','WZQH',1,'gant_jardinagef4.jpg'),
+    (25,'Gants imprimés de jardinage','51','Noir/Marron','12.08','1','4','1','sans-marque',1,'gant_jardinage5.jpg');
     '''
     mycursor.execute(sql)
 
