@@ -16,22 +16,22 @@
         </div>
 
         <div class="bg-light p-3">
-            <h1>Les gants</h1>
+            <h1>Les articles</h1>
         </div>
 
         <div class="row">
-                {% for gant in gant  %}
+                {% for article in articles  %}
                         <div class="card col-4 mt-4 p-1">
                             <div class="card-body border-dark rounded p-1">
-                                <a href="/client/article/details?id_article={{ gant.id_gant }}" >
+                                <a href="/client/article/details?id_article={{ article.id_article }}" >
                                 <h3 class="card-title">
-                                    <span style="color: #0b2e13">{{ gant.nom_gant }}</span><br>
-                                    {{ gant.prix_gant }}
+                                    <span style="color: #0b2e13">{{ article.nom }}</span><br>
+                                    {{ article.prix }}
                                     €
                                 </h3>
-                                     {%  if gant.image is not none %}
-                                        <img class="card-img-top rounded mx-auto d-block"  style="width:100px;height:100px"  src="{{ url_for('static', filename = 'images/')}}{{ gant.image }}"  alt="image  de {{ gant.nom_gant }}" >
-                                    {% else %} <img class="card-img-top rounded mx-auto d-block"   style="width:100px;height:100px"   src="{{ url_for('static', filename='images/no_photo.jpeg')}}"  alt="image  de {{ gant.nom_gant }}" >
+                                     {%  if article.image is not none %}
+                                        <img class="card-img-top rounded mx-auto d-block"  style="width:100px;height:100px"  src="{{ url_for('static', filename = 'images/')}}{{ article.image }}"  alt="image  de {{ article.nom }}" >
+                                    {% else %} <img class="card-img-top rounded mx-auto d-block"   style="width:100px;height:100px"   src="{{ url_for('static', filename='images/no_photo.jpeg')}}"  alt="image  de {{ article.nom }}" >
                                     {% endif %}
                                     <hr>
                                 </a>
