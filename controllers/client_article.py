@@ -19,8 +19,17 @@ def client_article_show():                                 # remplace client_ind
     condition_and = ""
     # utilisation du filtre
     sql3=''' prise en compte des commentaires et des notes dans le SQL    '''
-    articles =[]
-
+    sql = ''' SELECT id_gant as id_article
+                    , nom_gant as nom
+                    , prix_gant as prix
+                    , stock as stock
+                FROM gant
+                ORDER BY nom_gant;
+            '''
+    mycursor.execute(sql)
+    gant = mycursor.fetchall()
+    articles = gant
+            
 
     # pour le filtre
     types_article = []
