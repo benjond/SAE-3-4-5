@@ -103,6 +103,7 @@ def fct_fixtures_load():
         type_gant_id INT NOT NULL,
         fournisseur INT NOT NULL,
         marque VARCHAR(255) NOT NULL,
+        stock INT NOT NULL DEFAULT 0,
         image VARCHAR(255) NOT NULL,
         CONSTRAINT fk_gant_taille FOREIGN KEY (taille_id) REFERENCES taille(id_taille),
         CONSTRAINT fk_gant_type_gant FOREIGN KEY (type_gant_id) REFERENCES type_gant(id_type_gant)

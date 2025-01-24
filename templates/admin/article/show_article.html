@@ -17,22 +17,22 @@ articles (tableau de dictionnaires)
 <h3>article</h3>
 <a  class="btn btn-outline-success" href="/admin/article/add">ajouter un article</a>
 <br><br>
-{#{{ gant }}#}
+{#{{ articles }}#}
 <table class="table">
     <thead class="thead-dark">
         <tr>
-            <th>nom</th><th>id</th><th>type de gant (id)</th><th>prix</th><th style="color: green">stock</th>
+            <th>nom</th><th>id</th><th>type article (id)</th><th>prix</th><th style="color: green">stock</th>
             <th>nouveaux avis</th><th>nb déclinaisons</th><th>image</th><th>opération</th>
         </tr>
     </thead>
     <tbody>
-    {% if gant | length >= 1 %}
-        {% for ligne in gant %}
+    {% if articles | length >= 1 %}
+        {% for ligne in articles %}
            <tr>
-                  <td>{{ ligne.nom_gant }}</td>
-                  <td>{{ ligne.id_gant }}</td>
-                  <td><span style="color: red">{{ ligne.libelle }}</span> ({{ ligne.type_gant_id }})</td>
-                  <td>{#{ ligne.prix_gant }#}  {{  "{:,.2f} €".format(ligne.prix_gant) }}</td>
+                  <td>{{ ligne.nom }}</td>
+                  <td>{{ ligne.id_article }}</td>
+                  <td><span style="color: red">{{ ligne.libelle }}</span> ({{ ligne.type_article_id }})</td>
+                  <td>{#{ ligne.prix }#}  {{  "{:,.2f} €".format(ligne.prix) }}</td>
                   <td>
                   {% if ligne.stock is defined %}
                      {% if ligne.stock != None  %}
@@ -54,7 +54,7 @@ articles (tableau de dictionnaires)
                    <td>
                   {% if ligne.nb_commentaires_nouveaux is defined %}
                      {% if ligne.nb_commentaires_nouveaux > 0 %}
-                         <a href="/admin/article/commentaires?id_article={{ ligne.id_gant }}"><strong style="color: red">{{ ligne.nb_commentaires_nouveaux }} avis non lu(s) ⚠️ </strong></a>
+                         <a href="/admin/article/commentaires?id_article={{ ligne.id_article }}"><strong style="color: red">{{ ligne.nb_commentaires_nouveaux }} avis non lu(s) ⚠️ </strong></a>
                      {% else %}
                         <strong class="text-muted"></strong>
                      {% endif %}
