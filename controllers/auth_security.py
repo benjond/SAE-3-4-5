@@ -53,8 +53,8 @@ def auth_signup_post():
     email = request.form.get('email')
     login = request.form.get('login')
     password = request.form.get('password')
-    nom = request.form.get('nom')
-    est_actif = request.form.get('est_actif')
+    nom = login
+    est_actif = 1
     tuple_select = (login, email)
     sql = "SELECT * FROM utilisateur WHERE login=%s OR email=%s"
     retour = mycursor.execute(sql, tuple_select)
@@ -94,4 +94,3 @@ def auth_logout():
 @auth_security.route('/forget-password', methods=['GET'])
 def forget_password():
     return render_template('auth/forget_password.html')
-
