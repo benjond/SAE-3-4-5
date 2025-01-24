@@ -15,6 +15,31 @@ def client_panier_add():
     id_client = session['id_user']
     id_article = request.form.get('id_article')
     quantite = request.form.get('quantite')
+
+    ## Ajouts
+    sql = '''SELECT * FROM ligne_panier WHERE gant_id = %s AND utilisateur_id = %s'''
+    mycursor.execute(sql,(id_article,id_client))
+    article_panier = mycursor.fetchone()
+
+    mycursor.execute("SELECT * FROM gant WHERE gant_id = %s",(id_article))
+    article = mycursor.fetchone()
+
+    # TODO : rajouter une recherche du stock de l'article
+    # Si l'article et mis dans le panier, alors l'on fait stock - article_nmb_article_panier
+    if not (article_panier is None) and article_panier['quantite'] >= 1:
+        tuple_update = (quantite, id_client, id_article)
+        sql = "UPDATE ligne_panier SET quantite = quantite+%s WHERE utilisateur_id = %s AND gant_id = %s"
+        mycursor.execute(sql, tuple_update)
+    else:
+        tuple_insert = (id_client, id_article, quantite)
+        sql = "INSERT INTO ligne_panier(utilisateur_id, gant_id, quantite, date_ajout) VALUES (%s,%s,%s, current_timestamp)"
+        mycursor.execute(sql, tuple_insert)
+
+    get_db().commit()
+
+    return redirect('/client/article/show')
+
+
     # ---------
     #id_declinaison_article=request.form.get('id_declinaison_article',None)
     id_declinaison_article = 1
