@@ -23,7 +23,7 @@ def client_article_show():                                 # remplace client_ind
                     , nom_gant as nom
                     , prix_gant as prix
                     , stock as stock
-                    , CONCAT('static/', image) as image
+                    , image as image
                 FROM gant
                 ORDER BY nom_gant;
             '''
