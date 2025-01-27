@@ -100,7 +100,7 @@ def fct_fixtures_load():
         prix_gant FLOAT NOT NULL,
         taille_id INT NOT NULL,
         type_gant_id INT NOT NULL,
-        fournisseur INT NOT NULL,
+        fournisseur VARCHAR(255) NOT NULL,
         marque VARCHAR(255) NOT NULL,
         stock INT NOT NULL DEFAULT 0,
         image VARCHAR(255) NOT NULL,

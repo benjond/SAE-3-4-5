@@ -1,7 +1,7 @@
 #! /usr/bin/python
 # -*- coding:utf-8 -*-
 from flask import Blueprint
-from flask import Flask, request, render_template, redirect, abort, flash, session
+from flask import request, render_template, session
 
 from connexion_db import get_db
 
@@ -17,8 +17,12 @@ def client_article_show():                                 # remplace client_ind
     sql = '''   selection des articles   '''
     list_param = []
     condition_and = ""
+    if 'filtre_nom' in request.args:
+        filtre_nom = request.args['filtre_nom']
+        condition_and += " AND nom_gant LIKE %s"
+        list_param.append(f"%{filtre_nom}%")
     # utilisation du filtre
-    sql3=''' prise en compte des commentaires et des notes dans le SQL    '''
+    # prise en compte des commentaires et des notes dans le SQL
     sql = ''' SELECT id_gant as id_article
                     , nom_gant as nom
                     , prix_gant as prix
@@ -33,16 +37,32 @@ def client_article_show():                                 # remplace client_ind
             
 
     # pour le filtre
-    types_article = []
+    sql = '''SELECT * FROM type_gant;'''
+    mycursor.execute(sql)
+    types_article = mycursor.fetchall()
+        
 
 
-    articles_panier = []
+    # pour le panier
+    sql = '''SELECT gant.id_gant as id_article
+                    , gant.nom_gant as nom
+                    , gant.prix_gant as prix
+                    , gant.stock as stock
+                    , gant.image as image
+                    , ligne_panier.quantite as quantite
+                FROM gant
+                JOIN ligne_panier ON gant.id_gant = ligne_panier.gant_id
+                WHERE ligne_panier.utilisateur_id = %s
+                ORDER BY gant.nom_gant;
+    '''
 
+    mycursor.execute(sql, (id_client,))
+    articles_panier = mycursor.fetchall()
+
+    prix_total = None
     if len(articles_panier) >= 1:
-        sql = ''' calcul du prix total du panier '''
-        prix_total = None
-    else:
-        prix_total = None
+        # calcul du prix total du panier
+        pass
     return render_template('client/boutique/panier_article.html'
                            , articles=articles
                            , articles_panier=articles_panier
