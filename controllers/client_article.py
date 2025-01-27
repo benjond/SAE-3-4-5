@@ -14,27 +14,35 @@ def client_article_show():                                 # remplace client_ind
     mycursor = get_db().cursor()
     id_client = session['id_user']
 
-    sql = '''   selection des articles   '''
-    list_param = []
-    condition_and = ""
-    # utilisation du filtre
-    sql3=''' prise en compte des commentaires et des notes dans le SQL    '''
+    # Récupération des filtres depuis les paramètres de la requête
+    filtre_type = request.args.get('type', None)
+
     sql = ''' SELECT id_gant as id_article
                     , nom_gant as nom
                     , prix_gant as prix
                     , stock as stock
                     , image as image
                 FROM gant
-                ORDER BY nom_gant;
+                WHERE 1=1
             '''
-    mycursor.execute(sql)
+    
+    list_param = []
+
+    # Ajout de la condition de filtre si un type est sélectionné
+    if filtre_type:
+        sql += " AND type_gant = %s"
+        list_param.append(filtre_type)
+
+    sql += " ORDER BY nom_gant;"
+
+    mycursor.execute(sql, list_param)
     gant = mycursor.fetchall()
     articles = gant
-            
 
-    # pour le filtre
-    types_article = []
-
+    # Récupération des types d'articles pour le filtre
+    sql_types = ''' SELECT DISTINCT type_gant FROM gant '''
+    mycursor.execute(sql_types)
+    types_article = mycursor.fetchall()
 
     articles_panier = []
 
@@ -43,6 +51,7 @@ def client_article_show():                                 # remplace client_ind
         prix_total = None
     else:
         prix_total = None
+
     return render_template('client/boutique/panier_article.html'
                            , articles=articles
                            , articles_panier=articles_panier
