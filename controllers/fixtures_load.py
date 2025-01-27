@@ -130,7 +130,7 @@ def fct_fixtures_load():
                                                                                                                ('Gant de travail jardinier - SOLIDUR CERCIS GA08','42','Beige / Noir','16.25','1','4','Solidur','Solidur','1','gant_jardinage1.jpg'),
                                                                                                                ('Paire de gants pour les travaux de jardinage latex, T 6 ','67','vert','4.19','3','4','Geolia','GEOLIA','1','gant_jardinage2.webp'),
                                                                                                                ('GANTS DE JARDIN SPECIAL EPINEUX','78','vert','7.76','6','4','Europapa','Europapa','1','gant_jardinage3.jpg'),
-                                                                                                               ('WZQH Gants De Travail En Cuir Pour Hommes Ou Femmes','92',' Café/gris','11.99','7','4','WZQH','WZQH','1','gant_jardinagef4.jpg'),
+                                                                                                               ('WZQH Gants De Travail En Cuir Pour Hommes Ou Femmes','92',' Café/gris','11.99','7','4','WZQH','WZQH','1','gant_jardinage4.jpg'),
                                                                                                                ('Gants imprimés de jardinage','51','Noir/Marron','12.08','1','4','Garden Trading','sans-marque','1','gant_jardinage5.jpg');
     '''
     mycursor.execute(sql)
