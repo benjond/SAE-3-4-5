@@ -161,8 +161,25 @@ INSERT INTO ligne_panier(utilisateur_id, gant_id, quantite, date_ajout) VALUES
                                                                             (2, 14, 1, '2024-01-10'); -- L'utilisateur 2 ajoute un gant de golf "Nike"
 
 
+SELECT commande.id_commande, commande.date_achat, utilisateur.nom AS nom_utilisateur, etat.libelle AS etat_commande
+FROM commande
+INNER JOIN utilisateur ON commande.utilisateur_id = utilisateur.id_utilisateur
+INNER JOIN etat ON commande.etat_id = etat.id_etat;
+
+SELECT utilisateur.id_utilisateur, utilisateur.nom, commande.id_commande, commande.date_achat
+FROM utilisateur
+LEFT JOIN commande ON utilisateur.id_utilisateur = commande.utilisateur_id;
 
 
+SELECT gant.id_gant, gant.nom_gant, ligne_commande.commande_id, ligne_commande.quantite
+FROM gant
+RIGHT JOIN ligne_commande ON gant.id_gant = ligne_commande.gant_id;
+
+SELECT commande.id_commande, commande.date_achat, ligne_commande.gant_id, ligne_commande.quantite
+FROM commande
+LEFT JOIN ligne_commande ON commande.id_commande = ligne_commande.commande_id;SELECT utilisateur.id_utilisateur, utilisateur.nom, ligne_panier.gant_id, ligne_panier.quantite
+FROM utilisateur
+LEFT JOIN ligne_panier ON utilisateur.id_utilisateur = ligne_panier.utilisateur_id;
 
 
 
