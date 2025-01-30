@@ -19,7 +19,7 @@ CREATE TABLE utilisateur (
 
 CREATE TABLE etat (
                       id_etat INT PRIMARY KEY AUTO_INCREMENT,
-                      libelle VARCHAR(255) NOT NULL
+                      libelle_etat VARCHAR(255) NOT NULL
 );
 
 CREATE TABLE commande (

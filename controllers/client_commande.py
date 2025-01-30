@@ -83,14 +83,16 @@ def client_commande_add():
     mycursor.execute(sql, (datetime.now(), 'en attente', id_client))
 
     sql = '''SELECT last_insert_id() as last_insert_id'''
+    mycursor.execute(sql)
+    last_insert_id = mycursor.fetchone()['last_insert_id']
     # numéro de la dernière commande
     for item in items_ligne_panier:
         sql = '''DELETE FROM ligne_panier WHERE gant_id = %s AND utilisateur_id = %s'''
         mycursor.execute(sql, (item['id_article'], id_client))
 
         sql = '''INSERT INTO ligne_commande (commande_id, gant_id, quantite, prix)
-             VALUES (last_insert_id(), %s, %s, %s)'''
-        mycursor.execute(sql, (item['id_article'], item['quantite'], item['prix']))
+             VALUES (%s, %s, %s, %s)'''
+        mycursor.execute(sql, (last_insert_id, item['id_article'], item['quantite'], item['prix']))
 
     get_db().commit()
     flash(u'Commande ajoutée','alert-success')
@@ -108,7 +110,7 @@ def client_commande_show():
            SUM(ligne_commande.quantite * ligne_commande.prix) as prix_total
     FROM commande
     JOIN ligne_commande ON commande.id_commande = ligne_commande.commande_id
-    JOIN etat ON commande.etat_id = etat.etat_id
+    JOIN etat ON commande.etat_id = etat.id_etat
     WHERE commande.utilisateur_id = %s
     GROUP BY commande.id_commande, etat.libelle
     ORDER BY etat.libelle, commande.date_achat DESC
