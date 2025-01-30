@@ -37,7 +37,7 @@ def client_article_show():                                 # remplace client_ind
             
 
     # pour le filtre
-    sql = '''SELECT * FROM type_gant;'''
+    sql = '''SELECT id_type_gant, nom_type_gant AS libelle FROM type_gant ORDER by nom_type_gant'''
     mycursor.execute(sql)
     types_article = mycursor.fetchall()
         
