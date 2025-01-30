@@ -131,7 +131,6 @@ def client_panier_filtre():
     filter_prix_min = request.form.get('filter_prix_min', None)
     filter_prix_max = request.form.get('filter_prix_max', None)
     filter_types = request.form.getlist('filter_types', None)
-    print(f"filter_word : {filter_word}/{type(filter_word)}\nfilter_prix_min : {filter_prix_min}/{type(filter_prix_min)}\nfilter_prix_max : {filter_prix_max}/{type(filter_prix_max)}\nfilter_types : {filter_types}/{type(filter_types)}\n")
 
     # test des variables puis
     # mise en session des variables
@@ -156,6 +155,9 @@ def client_panier_filtre():
 
     ## types :
     if filter_types:
+        for i in range(len(filter_types)):
+            if filter_types[i] != '':
+                session['filter_types'][i] = filter_types[i]
         sql3 = '''SELECT * FROM gant INNER JOIN type_gant ON type_gant.id_type_gant = gant.type_gant_id WHERE type_gant.id_type_gant IN (%s)''' % ','.join(['%s'] * len(filter_types))
         mycursor.execute(sql3, filter_types)
         articles_filter = mycursor.fetchall()
@@ -163,7 +165,15 @@ def client_panier_filtre():
     # Mise à jour des lignes de panier en fonction des filtres
     session['articles_filter'] = articles_filter
     session['items_filtre'] = [item['id_gant'] for item in articles_filter]
-    
+
+    print(
+    f"filter_word : {filter_word}/{type(filter_word)}\n"
+    f"filter_prix_min : {filter_prix_min}/{type(filter_prix_min)}\n"
+    f"filter_prix_max : {filter_prix_max}/{type(filter_prix_max)}\n"
+    f"filter_types : {filter_types}/{type(filter_types)}\n"
+    )
+
+
     return redirect('/client/article/show')
 
 
