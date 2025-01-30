@@ -2,22 +2,22 @@ from flask import Flask, request, render_template, redirect, url_for, abort, fla
 
 import pymysql.cursors
 
+import os                                 # à ajouter
+from dotenv import load_dotenv 
+project_folder = os.path.expanduser('~/Documents/GitHubSAE-3-4-5')  # adjust as appropriate (avec le dossier où se trouve le fichier .env et app.py)
+load_dotenv(os.path.join(project_folder, '.env'))                          # à ajouter
+
 def get_db():
-    db = getattr(g, '_database', None)
-    if db is None:
-        #
-        db = g._database = pymysql.connect(
+    if 'db' not in g:
+        g.db =  pymysql.connect(
             host="serveurmysql.iut-bm.univ-fcomte.fr",
-            # host="serveurmysql.iut-bm.univ-fcomte.fr",
             user="bjond",
             password="mdp",
             database="BDD_bjond",
             charset='utf8mb4',
             cursorclass=pymysql.cursors.DictCursor
         )
-        # à activer sur les machines personnelles :
-        activate_db_options(db)
-    return db
+    return g.db
 
 def activate_db_options(db):
     cursor = db.cursor()
