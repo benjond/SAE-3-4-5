@@ -1,6 +1,8 @@
 .idea/
 __pycache__/
+controllers/__pycache__/
 connect.sh
 flask_run.sh
 connexion_db.py
 .git-credentials
+.env

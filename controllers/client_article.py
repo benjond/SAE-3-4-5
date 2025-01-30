@@ -13,8 +13,6 @@ client_article = Blueprint('client_article', __name__,
 def client_article_show():                                 # remplace client_index
     mycursor = get_db().cursor()
     id_client = session['id_user']
-
-    sql = '''   selection des articles   '''
     list_param = []
     condition_and = ""
     if 'filtre_nom' in request.args:
@@ -37,7 +35,7 @@ def client_article_show():                                 # remplace client_ind
             
 
     # pour le filtre
-    sql = '''SELECT id_type_gant, nom_type_gant AS libelle FROM type_gant ORDER by nom_type_gant'''
+    sql = '''SELECT id_type_gant, nom_type_gant AS libelle FROM type_gant ORDER BY nom_type_gant;'''
     mycursor.execute(sql)
     types_article = mycursor.fetchall()
         

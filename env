@@ -1,0 +1,4 @@
+HOST="serveurmysql.iut-bm.univ-fcomte.fr"
+PASSWORD="mdp"
+LOGIN="bjond"
+DATABASE="BDD_bjond"

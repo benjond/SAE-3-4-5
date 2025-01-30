@@ -19,7 +19,7 @@ CREATE TABLE utilisateur (
 
 CREATE TABLE etat (
                       id_etat INT PRIMARY KEY AUTO_INCREMENT,
-                      libelle VARCHAR(255) NOT NULL
+                      libelle_etat VARCHAR(255) NOT NULL
 );
 
 CREATE TABLE commande (
@@ -145,6 +145,7 @@ INSERT INTO gant(nom_gant,poids,couleur,prix_gant,taille_id,type_gant_id,fournis
 
 
 INSERT INTO commande(id_commande, date_achat, utilisateur_id, etat_id) VALUES
+                                                                           (1, '2023-12-10', 2, 1),
                                                                            (2, '2023-12-15', 3, 2),
                                                                            (3, '2024-01-10', 2, 3);
 
