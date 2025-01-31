@@ -72,26 +72,30 @@ def fct_fixtures_load():
         CREATE TABLE taille (
             id_taille INT PRIMARY KEY AUTO_INCREMENT,
             num_taille_fr INT NOT NULL,
-            taille_us VARCHAR(255) NOT NULL,
+            taille_us_homme VARCHAR(255) NOT NULL,
+            taille_us_femme VARCHAR(255) NOT NULL,
             tour_de_main FLOAT NOT NULL
         ) DEFAULT CHARSET=utf8;
         '''
     mycursor.execute(sql)
 
     sql = '''
-    INSERT INTO taille(id_taille, num_taille_fr, taille_us, tour_de_main) VALUES
-    (1,6.5,'S',17.5),
-    (2,7,'M',19),
-    (3,7.5,'L',20),
-    (4,8,'XL',21.5),
-    (5,8.5,'XXL',23),
-    (6,9,'NULL',24),
-    (7,9.5,'NULL',25.5),
-    (8,10,'NULL',27);
+    INSERT INTO taille(id_taille,num_taille_fr,taille_us_homme,taille_us_femme,tour_de_main) VALUES
+                                                                                             (1,6.5,'NULL','S',17.5),
+                                                                                             (2,7,'NULL','M',19),
+                                                                                             (3,7.5,'NULL','L',20),
+                                                                                             (4,8,'S','XL',21.5),
+                                                                                             (5,8.5,'M','XXL',23),
+                                                                                             (6,9,'L','NULL',24),
+                                                                                             (7,9.5,'XL','NULL',25.5),
+                                                                                             (8,10,'XXL','NULL',27);
+                                                                                             
+                                                                                             
     '''
+
     mycursor.execute(sql)
 
-    sql = ''' 
+    sql='''
     CREATE TABLE gant (
         id_gant INT PRIMARY KEY AUTO_INCREMENT,
         nom_gant VARCHAR(255) NOT NULL,
@@ -150,10 +154,9 @@ def fct_fixtures_load():
 
     sql = ''' 
     INSERT INTO commande(id_commande, date_achat, utilisateur_id, etat_id) VALUES
-        (1,'2021-01-01',1,1),
-        (2,'2021-01-03',3,3),
-        (3,'2023-12-15',3,2),
-        (4,'2024-01-10',2,3);
+                                                                           (1, '2023-12-10', 2, 1),
+                                                                           (2, '2023-12-15', 3, 2),
+                                                                           (3, '2024-01-10', 2, 3);
     '''
     mycursor.execute(sql)
 
@@ -171,13 +174,10 @@ def fct_fixtures_load():
 
     sql = '''
     INSERT INTO ligne_commande(commande_id, gant_id, prix, quantite) VALUES
-        (1,1,50,1),
-        (2,2,60,2),
-        (3,3,70,3),
-        (3,7,1,1),
-        (3,16,2,2),
-        (2,4,1,1),
-        (2,14,1,1);
+                                                                     (2, 6, 140, 1),
+                                                                     (2, 8, 56.96, 2),
+                                                                     (3, 12, 15, 3),
+                                                                     (3, 18, 11.99, 4);
     '''
     mycursor.execute(sql)
 
