@@ -106,14 +106,15 @@ def client_commande_show():
     mycursor = get_db().cursor()
     id_client = session['id_user']
     sql = '''
-    SELECT commande.id_commande, commande.date_achat, etat.libelle as etat,
-           SUM(ligne_commande.quantite * ligne_commande.prix) as prix_total
+    SELECT commande.id_commande, commande.date_achat, etat.libelle_etat as libelle,
+           SUM(ligne_commande.quantite * ligne_commande.prix) as prix_total,
+           SUM(ligne_commande.quantite) as nbr_articles
     FROM commande
     JOIN ligne_commande ON commande.id_commande = ligne_commande.commande_id
     JOIN etat ON commande.etat_id = etat.id_etat
     WHERE commande.utilisateur_id = %s
-    GROUP BY commande.id_commande, etat.libelle
-    ORDER BY etat.libelle, commande.date_achat DESC
+    GROUP BY commande.id_commande, etat.libelle_etat
+    ORDER BY etat.libelle_etat, commande.date_achat DESC
     '''
     mycursor.execute(sql, (id_client,))
     commandes = mycursor.fetchall()
