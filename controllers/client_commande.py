@@ -36,13 +36,22 @@ def client_commande_valide():
         '''
         mycursor.execute(sql, (id_client,))
         prix_total = mycursor.fetchone()['prix_total']
+        
+        sql = '''
+        SELECT id_adresse, ligne1, ligne2, ville, code_postal, pays
+        FROM adresse
+        WHERE utilisateur_id = %s
+        '''
+        mycursor.execute(sql, (id_client,))
+        adresses = mycursor.fetchall()
     else:
         prix_total = 0
-    # etape 2 : selection des adresses
+        adresses = []
+
     return render_template('client/boutique/panier_validation_adresses.html'
-                           #, adresses=adresses
+                           , adresses=adresses
                            , articles_panier=articles_panier
-                           , prix_total= prix_total
+                           , prix_total=prix_total
                            , validation=1
                            #, id_adresse_fav=id_adresse_fav
                            )
