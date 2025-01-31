@@ -79,7 +79,7 @@ def client_commande_add():
 
     sql = '''
     INSERT INTO commande (date_achat, etat_id, utilisateur_id)
-    VALUES (%s, (SELECT etat_id FROM etat WHERE libelle = %s), %s)'''
+    VALUES (%s, (SELECT id_etat FROM etat WHERE libelle_etat = %s), %s)'''
     mycursor.execute(sql, (datetime.now(), 'en attente', id_client))
 
     sql = '''SELECT last_insert_id() as last_insert_id'''
