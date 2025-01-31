@@ -61,9 +61,13 @@ def client_coordonnee_delete_adresse():
 def client_coordonnee_add_adresse():
     mycursor = get_db().cursor()
     id_client = session['id_user']
+    sql='''SELECT * FROM utilisateur WHERE id_utilisateur=%s'''
+    mycursor.execute(sql,(id_client,))
+
+    utilisateur = mycursor.fetchone()
 
     return render_template('client/coordonnee/add_adresse.html'
-                           #,utilisateur=utilisateur
+                           ,utilisateur=utilisateur
                            )
 
 @client_coordonnee.route('/client/coordonnee/add_adresse',methods=['POST'])
