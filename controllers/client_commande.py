@@ -36,22 +36,13 @@ def client_commande_valide():
         '''
         mycursor.execute(sql, (id_client,))
         prix_total = mycursor.fetchone()['prix_total']
-        
-        sql = '''
-        SELECT id_adresse, ligne1, ligne2, ville, code_postal, pays
-        FROM adresse
-        WHERE utilisateur_id = %s
-        '''
-        mycursor.execute(sql, (id_client,))
-        adresses = mycursor.fetchall()
     else:
         prix_total = 0
-        adresses = []
-
+    # etape 2 : selection des adresses
     return render_template('client/boutique/panier_validation_adresses.html'
-                           , adresses=adresses
+                           #, adresses=adresses
                            , articles_panier=articles_panier
-                           , prix_total=prix_total
+                           , prix_total= prix_total
                            , validation=1
                            #, id_adresse_fav=id_adresse_fav
                            )
@@ -88,7 +79,7 @@ def client_commande_add():
 
     sql = '''
     INSERT INTO commande (date_achat, etat_id, utilisateur_id)
-    VALUES (%s, (SELECT id_etat FROM etat WHERE libelle_etat = %s), %s)'''
+    VALUES (%s, (SELECT etat_id FROM etat WHERE libelle = %s), %s)'''
     mycursor.execute(sql, (datetime.now(), 'en attente', id_client))
 
     sql = '''SELECT last_insert_id() as last_insert_id'''
