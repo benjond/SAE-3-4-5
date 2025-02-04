@@ -124,7 +124,7 @@ def client_panier_delete_line():
 
 
 @client_panier.route('/client/panier/filtre', methods=['POST'])
-def client_panier_filtre():
+def client_panier_filtre(): ## REF : https://cours-info.iut-bm.univ-fcomte.fr/upload/perso/77/rs_S1_BDD/bdd1/S1_BDD_pymysql_tp2_flask.html
 
     mycursor = get_db().cursor()
     filter_word = request.form.get('filter_word', None)
@@ -132,15 +132,26 @@ def client_panier_filtre():
     filter_prix_max = request.form.get('filter_prix_max', None)
     filter_types = request.form.getlist('filter_types', None)
 
-    # test des variables puis
+    # test des variables puis   
     # mise en session des variables
 
     ## word :
-    if filter_word:
-        session['filter_word'] = filter_word
-        sql1 = '''SELECT * FROM gant WHERE gant.nom_gant = %s'''
-        mycursor.execute(sql1,filter_word)
-        articles_filter = mycursor.fetchall()
+    if filter_word or filter_word == "":
+        if len(filter_word) > 1 :
+            if filter_word.isaplha():
+                session['filter_word'] = filter_word
+                sql1 = '''SELECT * FROM gant WHERE gant.nom_gant = %s'''
+                mycursor.execute(sql1,filter_word)
+                articles_filter = mycursor.fetchall()
+            else:
+                flash(u"votre Mot rechercher doit uniquement être composé de lettres")
+        else:
+            if len(filter_word) == 1:
+                flash(u"votre Mot rechercher doit être composé de plus de 2 lettre")
+            else:
+                session.pop("filter_word",None)
+
+        
 
     ## Prix :
     if filter_prix_max:
@@ -158,6 +169,7 @@ def client_panier_filtre():
         for i in range(len(filter_types)):
             if filter_types[i] != '':
                 session['filter_types'][i] = filter_types[i]
+        
         sql3 = '''SELECT * FROM gant INNER JOIN type_gant ON type_gant.id_type_gant = gant.type_gant_id WHERE type_gant.id_type_gant IN (%s)''' % ','.join(['%s'] * len(filter_types))
         mycursor.execute(sql3, filter_types)
         articles_filter = mycursor.fetchall()
@@ -166,6 +178,7 @@ def client_panier_filtre():
     session['articles_filter'] = articles_filter
     session['items_filtre'] = [item['id_gant'] for item in articles_filter]
 
+    # Debug :
     print(
     f"filter_word : {filter_word}/{type(filter_word)}\n"
     f"filter_prix_min : {filter_prix_min}/{type(filter_prix_min)}\n"
