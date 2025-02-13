@@ -6,3 +6,5 @@ flask_run.sh
 connexion_db.py
 .git-credentials
 .env
+lauchFlask.sh
+
