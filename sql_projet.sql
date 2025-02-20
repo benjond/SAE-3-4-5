@@ -19,7 +19,7 @@ CREATE TABLE utilisateur (
 
 CREATE TABLE etat (
                       id_etat INT PRIMARY KEY AUTO_INCREMENT,
-                      libelle VARCHAR(255) NOT NULL
+                      libelle_etat VARCHAR(255) NOT NULL
 );
 
 CREATE TABLE commande (
@@ -95,11 +95,9 @@ INSERT INTO utilisateur(id_utilisateur,login,email,password,role,nom,est_actif) 
                                                                                      'ROLE_client','client2','1');
 
 
-INSERT INTO etat(id_etat,libelle) VALUES
-                                      (1,'En attente'),
-                                      (2,'En cours de préparation'),
-                                      (3,'Expédiée'),
-                                      (4,'Livrée');
+INSERT INTO etat(id_etat,libelle_etat) VALUES
+                                      (1,'En cours de préparation'),
+                                      (2,'Expédiée');
 
 INSERT INTO type_gant(id_type_gant,nom_type_gant) VALUES
                                                       (NULL,'Boxe'),
@@ -140,10 +138,6 @@ INSERT INTO ligne_panier(utilisateur_id,gant_id,quantite,date_ajout) VALUES
                                                                          (2,3,'1','2020-01-01'),
                                                                          (2,4,'1','2020-01-01'),
                                                                          (2,5,'1','2020-01-01');
-
-
-
-
 
 
 

@@ -62,10 +62,8 @@ def fct_fixtures_load():
     mycursor.execute(sql)
     sql = ''' 
     INSERT INTO etat(id_etat, libelle_etat) VALUES 
-    (1,'En attente'),
-    (2,'En cours de préparation'),
-    (3,'Expédiée'),
-    (4,'Livrée');
+    (1,'En cours de préparation'),
+    (2,'Expédiée');
      '''
     mycursor.execute(sql)
     sql = '''
@@ -154,9 +152,8 @@ def fct_fixtures_load():
 
     sql = ''' 
     INSERT INTO commande(id_commande, date_achat, utilisateur_id, etat_id) VALUES
-                                                                           (1, '2023-12-10', 2, 1),
-                                                                           (2, '2023-12-15', 3, 2),
-                                                                           (3, '2024-01-10', 2, 3);
+                                                                           (2, '2023-12-15', 3, 1),
+                                                                           (3, '2024-01-10', 2, 2);
     '''
     mycursor.execute(sql)
 
