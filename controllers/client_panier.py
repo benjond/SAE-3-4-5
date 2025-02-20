@@ -72,10 +72,6 @@ def client_panier_delete():
     get_db().commit()
     return redirect('/client/article/show')
 
-
-
-
-
 @client_panier.route('/client/panier/vider', methods=['POST'])
 def client_panier_vider():
     mycursor = get_db().cursor()
@@ -130,7 +126,7 @@ def client_panier_filtre():
     filter_word = request.form.get('filter_word', None)
     filter_prix_min = request.form.get('filter_prix_min', None)
     filter_prix_max = request.form.get('filter_prix_max', None)
-    filter_types = request.form.getlist('filter_types', None)
+    filter_types = request.form.getlist('filter_types')
 
     # Debug :
     print(

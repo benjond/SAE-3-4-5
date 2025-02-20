@@ -35,7 +35,7 @@ def client_article_show():                                 # remplace client_ind
             
 
     # pour le filtre
-    sql = '''SELECT id_type_gant, nom_type_gant AS libelle FROM type_gant ORDER BY nom_type_gant;'''
+    sql = '''SELECT id_type_gant as id_type_article, nom_type_gant AS libelle FROM type_gant ORDER BY nom_type_gant;'''
     mycursor.execute(sql)
     types_article = mycursor.fetchall()
         
@@ -61,9 +61,17 @@ def client_article_show():                                 # remplace client_ind
     if len(articles_panier) >= 1:
         # calcul du prix total du panier
         pass
+
+    # Use filtered articles from session if available
+    if 'articles_filter' in session and session['articles_filter']:
+        articles = session['articles_filter']
+        items_filtre = session.get('items_filtre') or []
+    else:
+        items_filtre = types_article
+
     return render_template('client/boutique/panier_article.html'
                            , articles=articles
                            , articles_panier=articles_panier
-                           #, prix_total=prix_total
-                           , items_filtre=types_article
+                           , prix_total=prix_total
+                           , items_filtre=items_filtre
                            )
