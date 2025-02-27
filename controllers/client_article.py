@@ -62,7 +62,7 @@ def client_article_show():                                 # remplace client_ind
         # calcul du prix total du panier
         pass
 
-    # Use filtered articles from session if available
+    # utilise les articles filtées de la session si il sont disponible
     if 'articles_filter' in session and session['articles_filter']:
         articles = session['articles_filter']
         items_filtre = session.get('items_filtre') or []

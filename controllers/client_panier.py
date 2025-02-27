@@ -76,21 +76,21 @@ def client_panier_delete():
 def client_panier_vider():
     mycursor = get_db().cursor()
     client_id = session['id_user']
-    
+
     # Sélection des lignes de panier pour l'utilisateur connecté
     sql = '''SELECT * FROM ligne_panier WHERE utilisateur_id = %s'''
     mycursor.execute(sql, (client_id,))
     items_panier = mycursor.fetchall()
-    
+
     for item in items_panier:
         # Suppression de la ligne de panier de l'article pour l'utilisateur connecté
         sql = '''DELETE FROM ligne_panier WHERE utilisateur_id = %s AND gant_id = %s'''
         mycursor.execute(sql, (client_id, item['gant_id']))
-        
+
         # Mise à jour du stock de l'article : stock = stock + qté de la ligne pour l'article
         sql2 = '''UPDATE gant SET stock = stock + %s WHERE id_gant = %s'''
         mycursor.execute(sql2, (item['quantite'], item['gant_id']))
-    
+
     get_db().commit()
     return redirect('/client/article/show')
 
@@ -130,10 +130,10 @@ def client_panier_filtre():
 
     # Debug :
     print(
-        f"filter_word : {filter_word}/{type(filter_word)}\n"
-        f"filter_prix_min : {filter_prix_min}/{type(filter_prix_min)}\n"
-        f"filter_prix_max : {filter_prix_max}/{type(filter_prix_max)}\n"
-        f"filter_types : {filter_types}/{type(filter_types)}\n"
+        f"filter_word : {filter_word} / {type(filter_word)}\n"
+        f"filter_prix_min : {filter_prix_min} / {type(filter_prix_min)}\n"
+        f"filter_prix_max : {filter_prix_max} / {type(filter_prix_max)}\n"
+        f"filter_types : {filter_types} / {type(filter_types)}\n"
     )
 
     # Test des variables puis mise en session des variables
@@ -146,7 +146,7 @@ def client_panier_filtre():
                 sql1 = '''SELECT * FROM gant WHERE gant.nom_gant LIKE %s'''
                 mycursor.execute(sql1, ('%' + filter_word + '%',))
                 articles_filter = mycursor.fetchall()
-                print(f"Articles Filter Word : {articles_filter}")
+                print(f"Articles Filter Word : {articles_filter}") ## Debug
             else:
                 flash(u"votre Mot rechercher doit uniquement être composé de lettres")
         else:
@@ -175,11 +175,57 @@ def client_panier_filtre():
 
     # Mise à jour des lignes de panier en fonction des filtres
     print(f"Article Filter : {articles_filter}") # DEBUG
-    print(f"\n\n\nSession : {session}") # DEBUG
+
     session['articles_filter'] = articles_filter
     session['items_filtre'] = [item['id_gant'] for item in articles_filter]
+    print(f"\n\n\nSession : {session}") # DEBUG
 
     return redirect('/client/article/show')
+
+
+"""
+@client_panier.route('/client/panier/filtre', methods=['POST'])
+def client_panier_filtre():
+    filter_word = request.form.get('filter_word', None)
+    filter_prix_min = request.form.get('filter_prix_min', None)
+    filter_prix_max = request.form.get('filter_prix_max', None)
+    filter_types = request.form.getlist('filter_types', None)
+    # test des variables puis
+    mycursor = get_db().cursor() 
+    sql = "SELECT * FROM article"
+    list_param = []
+    condition_and = ""
+    if "filter_word" in session or "filter_prix_min" in session or "filter_prix_max" in session or "filter_types" in session:
+        sql = sql + "WHERE"
+    if "filter_word" in session :
+        sql = sql + "nom LIKE %s"
+        list_param.append("%" + session["filter_word"] + "%")
+        condition_and = " AND "
+    if "filter_prix_min" in session or "filter_prix_max" in session :
+        sql = sql + condition_and + "prix BETWEEN %s and %s"
+        if "filter_prix_min" in session:
+            list_param.append(session["filter_prix_min"])
+        else:
+            list_param.append("0")
+        list_param.append(session["filter_prix_max"])
+        condition_and = "AND"
+    if "filter_types" in session :
+        sql = sql + condition_and + "("
+        last_item = session["filter_types"][-1]
+        for item in session["filter_types"]:
+            sql = sql + "type_article_id = %s"
+            if item != last_item:
+                sql = sql + "or"
+            list_param.append(item)
+        sql = sql + ")"
+    tuple_sql = tuple(list_param)
+    print(f"sql request : {sql}")
+    # mise en session des variables
+
+    print(f"\n\n\nSession : {session}")  # DEBUG
+    return redirect('/client/article/show')
+"""
+
 
 
 @client_panier.route('/client/panier/filtre/suppr', methods=['POST'])
@@ -193,3 +239,4 @@ def client_panier_filtre_suppr():
     session.pop('items_filtre', None)
     print("suppr filtre")
     return redirect('/client/article/show')
+
