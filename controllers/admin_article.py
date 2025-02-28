@@ -17,8 +17,17 @@ admin_article = Blueprint('admin_article', __name__,
 @admin_article.route('/admin/article/show')
 def show_article():
     mycursor = get_db().cursor()
-    sql = '''  requête admin_article_1
-    '''
+    sql = ''' SELECT 
+            gant.id_gant AS id_article, 
+            gant.nom_gant AS nom, 
+            gant.prix_gant AS prix, 
+            gant.image, 
+            gant.couleur, 
+            gant.poids, 
+            type_gant.nom_type_gant AS libelle, 
+            type_gant.id_type_gant AS type_article_id
+        FROM gant
+        JOIN type_gant ON gant.type_gant_id = type_gant.id_type_gant;'''
     mycursor.execute(sql)
     articles = mycursor.fetchall()
     return render_template('admin/article/show_article.html', articles=articles)
@@ -27,12 +36,13 @@ def show_article():
 @admin_article.route('/admin/article/add', methods=['GET'])
 def add_article():
     mycursor = get_db().cursor()
+    sql = '''SELECT id_type_gant as id_type_article, nom_type_gant as libelle  FROM type_gant;'''
+    mycursor.execute(sql)
+    types_gant = mycursor.fetchall()
 
-    return render_template('admin/article/add_article.html'
-                           #,types_article=type_article,
-                           #,couleurs=colors
-                           #,tailles=tailles
-                            )
+    return render_template('admin/article/add_article.html',
+                           types_article=types_gant)
+
 
 
 @admin_article.route('/admin/article/add', methods=['POST'])
@@ -52,7 +62,8 @@ def valid_add_article():
         print("erreur")
         filename=None
 
-    sql = '''  requête admin_article_2 '''
+    sql = ''' INSERT INTO gant (nom_gant, image, prix_gant, type_gant_id)
+        VALUES (%s, %s, %s, %s); '''
 
     tuple_add = (nom, filename, prix, type_article_id, description)
     print(tuple_add)
@@ -71,20 +82,20 @@ def valid_add_article():
 def delete_article():
     id_article=request.args.get('id_article')
     mycursor = get_db().cursor()
-    sql = ''' requête admin_article_3 '''
+    sql = '''SELECT COUNT(*) AS nb_declinaison FROM gant WHERE type_gant_id = %s;'''
     mycursor.execute(sql, id_article)
     nb_declinaison = mycursor.fetchone()
     if nb_declinaison['nb_declinaison'] > 0:
         message= u'il y a des declinaisons dans cet article : vous ne pouvez pas le supprimer'
         flash(message, 'alert-warning')
     else:
-        sql = ''' requête admin_article_4 '''
+        sql = ''' SELECT image FROM gant WHERE id_gant = %s; '''
         mycursor.execute(sql, id_article)
         article = mycursor.fetchone()
         print(article)
         image = article['image']
 
-        sql = ''' requête admin_article_5  '''
+        sql = ''' DELETE FROM gant WHERE id_gant = %s; '''
         mycursor.execute(sql, id_article)
         get_db().commit()
         if image != None:
