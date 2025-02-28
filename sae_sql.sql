@@ -96,11 +96,9 @@ INSERT INTO utilisateur(id_utilisateur,login,email,password,role,nom,est_actif) 
                                                                                      'ROLE_client','client2','1');
 
 
-INSERT INTO etat(id_etat,libelle) VALUES
-                                      (1,'En attente'),
-                                      (2,'En cours de préparation'),
-                                      (3,'Expédiée'),
-                                      (4,'Livrée');
+INSERT INTO etat(id_etat,libelle_etat) VALUES
+                                      (1,'En cours de préparation'),
+                                      (2,'Expédiée');
 
 INSERT INTO type_gant(id_type_gant,nom_type_gant) VALUES
                                                       (NULL,'Moto'),
