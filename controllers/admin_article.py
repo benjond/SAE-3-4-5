@@ -113,13 +113,24 @@ def edit_article():
     id_article=request.args.get('id_article')
     mycursor = get_db().cursor()
     sql = '''
-    requête admin_article_6    
+    SELECT 
+        gant.id_gant AS id_article, 
+        gant.nom_gant AS nom, 
+        gant.prix_gant AS prix, 
+        gant.image, 
+        gant.couleur, 
+        gant.poids, 
+        type_gant.nom_type_gant AS libelle, 
+        type_gant.id_type_gant AS type_article_id
+    FROM gant
+    JOIN type_gant ON gant.type_gant_id = type_gant.id_type_gant
+    WHERE gant.id_gant = %s;   
     '''
     mycursor.execute(sql, id_article)
     article = mycursor.fetchone()
     print(article)
     sql = '''
-    requête admin_article_7
+    SELECT id_type_gant as id_type_article, nom_type_gant as libelle  FROM type_gant;
     '''
     mycursor.execute(sql)
     types_article = mycursor.fetchall()
@@ -146,10 +157,8 @@ def valid_edit_article():
     type_article_id = request.form.get('type_article_id', '')
     prix = request.form.get('prix', '')
     description = request.form.get('description')
-    sql = '''
-       requête admin_article_8
-       '''
-    mycursor.execute(sql, id_article)
+    sql = '''SELECT image FROM gant WHERE id_gant = %s;'''
+    mycursor.execute(sql, (id_article,))
     image_nom = mycursor.fetchone()
     image_nom = image_nom['image']
     if image:
@@ -162,8 +171,10 @@ def valid_edit_article():
             image.save(os.path.join('static/images/', filename))
             image_nom = filename
 
-    sql = '''  requête admin_article_9 '''
-    mycursor.execute(sql, (nom, image_nom, prix, type_article_id, description, id_article))
+    sql = '''  UPDATE gant
+        SET nom_gant = %s, image = %s, prix_gant = %s, type_gant_id = %s
+        WHERE id_gant = %s; '''
+    mycursor.execute(sql, (nom, image_nom, prix, type_article_id, id_article))
 
     get_db().commit()
     if image_nom is None:
