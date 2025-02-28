@@ -54,7 +54,13 @@ def valid_add_article():
     type_article_id = request.form.get('type_article_id', '')
     prix = request.form.get('prix', '')
     description = request.form.get('description', '')
+    fournisseur = request.form.get('fournisseur', '')
     image = request.files.get('image', '')
+    taille_id = request.form.get('taille_id', 1)
+    couleur = request.form.get('couleur', '')
+    poids = request.form.get('poids', '')
+    marque = request.form.get('marque', '')
+    stock = request.form.get('stock', '')
 
     if image:
         filename = 'img_upload'+ str(int(2147483647 * random())) + '.png'
@@ -63,10 +69,10 @@ def valid_add_article():
         print("erreur")
         filename=None
 
-    sql = ''' INSERT INTO gant (nom_gant, image, prix_gant, type_gant_id)
-        VALUES (%s, %s, %s, %s); '''
+    sql = ''' INSERT INTO gant (nom_gant, image, prix_gant, type_gant_id, couleur, poids, fournisseur, marque, taille_id, stock)
+        VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s); '''
 
-    tuple_add = (nom, filename, prix, type_article_id, description)
+    tuple_add = (nom, filename, prix, type_article_id, couleur, poids, fournisseur, marque, taille_id, stock)
     print(tuple_add)
     mycursor.execute(sql, tuple_add)
     get_db().commit()

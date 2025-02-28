@@ -53,6 +53,7 @@ CREATE TABLE gant (
                       poids FLOAT NOT NULL,
                       couleur VARCHAR(255) NOT NULL,
                       prix_gant FLOAT NOT NULL,
+                      description TEXT,
                       taille_id INT NOT NULL,
                       type_gant_id INT NOT NULL,
                       fournisseur VARCHAR(255) NOT NULL,

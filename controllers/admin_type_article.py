@@ -47,8 +47,15 @@ def valid_add_type_article():
 def delete_type_article():
     id_type_article = request.args.get('id_type_article', '')
     mycursor = get_db().cursor()
+    
+    # Delete related rows in gant table first
+    sql = '''DELETE FROM gant WHERE type_gant_id = %s;'''
+    mycursor.execute(sql, (id_type_article,))
+    
+    # Then delete the row in type_gant table
     sql = '''DELETE FROM type_gant WHERE id_type_gant = %s;'''
     mycursor.execute(sql, (id_type_article,))
+    
     get_db().commit()
     flash(u'suppression type article , id : ' + id_type_article, 'alert-success')
     return redirect('/admin/type-article/show')
