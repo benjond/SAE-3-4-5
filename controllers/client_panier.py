@@ -57,6 +57,22 @@ def client_panier_delete():
     get_db().commit()
     return redirect('/client/article/show')
 
+@client_panier.route('/client/delete/line', methods=['POST'])
+def client_panier_delete_line():
+    mycursor = get_db().cursor()
+    id_client = session.get('id_user')
+    id_article = request.form.get('id_article')
+    quantite = int(request.form.get('quantite'))
+
+    sql = '''DELETE FROM ligne_panier WHERE utilisateur_id = %s AND gant_id = %s'''
+    mycursor.execute(sql, (id_client, id_article))
+
+    sql = '''UPDATE gant SET stock = stock + %s WHERE id_gant = %s'''
+    mycursor.execute(sql, (quantite, id_article))
+
+    get_db().commit()
+    return redirect('/client/article/show')
+
 @client_panier.route('/client/panier/vider', methods=['POST'])
 def client_panier_vider():
     mycursor = get_db().cursor()
