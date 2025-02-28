@@ -44,7 +44,7 @@ def fct_fixtures_load():
     mycursor.execute(sql)
     sql=''' 
     INSERT INTO type_gant(id_type_gant, nom_type_gant) VALUES 
-    (NULL,'Boxe'),
+    (NULL,'Moto'),
     (NULL, 'Ski'),
     (NULL, 'Golf'),
     (NULL, 'Jaradinage');

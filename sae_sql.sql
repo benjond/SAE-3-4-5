@@ -103,9 +103,9 @@ INSERT INTO etat(id_etat,libelle) VALUES
                                       (4,'Livrée');
 
 INSERT INTO type_gant(id_type_gant,nom_type_gant) VALUES
-                                                      (NULL,'moto'),
+                                                      (NULL,'Moto'),
                                                       (NULL, 'Ski'),
-                                                      (NULL, 'golf'),
+                                                      (NULL, 'Golf'),
                                                       (NULL, 'Jaradinage');
 
 INSERT INTO taille(id_taille,num_taille_fr,taille_us_homme,taille_us_femme,tour_de_main) VALUES
