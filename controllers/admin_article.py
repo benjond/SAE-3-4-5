@@ -24,6 +24,7 @@ def show_article():
             gant.image, 
             gant.couleur, 
             gant.poids, 
+            gant.stock, 
             type_gant.nom_type_gant AS libelle, 
             type_gant.id_type_gant AS type_article_id
         FROM gant
