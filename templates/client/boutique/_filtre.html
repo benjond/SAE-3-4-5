@@ -10,7 +10,7 @@
         {% for item in items_filtre %}
             {% set id_item = item.id_type_article|string %}
             <input type="checkbox" name="filter_types" value="{{ id_item }}"
-                   {% if session.filter_types is defined and id_item in session.filter_types %}checked{% endif %}>
+            {% if session.filter_types is defined and session.filter_types and id_item in session.filter_types %}checked{% endif %}>
             {{ item.libelle }}<br/>
         {% endfor %}
     </div>
