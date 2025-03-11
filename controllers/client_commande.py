@@ -140,7 +140,7 @@ def client_commande_show():
         SELECT gant.nom_gant as nom,
                gant.prix_gant as prix,
                ligne_commande.quantite as quantite,
-               (ligne_commande.quantite * ligne_commande.prix) as prix_total
+               (ligne_commande.quantite * gant.prix_gant) as prix_total
         FROM ligne_commande
         INNER JOIN gant ON ligne_commande.gant_id = gant.id_gant
         WHERE ligne_commande.commande_id = %s

@@ -101,7 +101,7 @@ def fct_fixtures_load():
         couleur VARCHAR(255) NOT NULL,
         prix_gant FLOAT NOT NULL,
         taille_id INT NOT NULL,
-        description TEXT NOT NULL DEFAULT '',
+        description TEXT,
         type_gant_id INT NOT NULL,
         fournisseur VARCHAR(255) NOT NULL,
         marque VARCHAR(255) NOT NULL,
