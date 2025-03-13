@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?><project name="PlanningSAE" company="" webLink="http://" view-date="2025-02-01" view-index="0" gantt-divider-location="641" resource-divider-location="300" version="3.3.3311" locale="fr_FR">
+    <description/>
+    <view zooming-state="default:9" id="gantt-chart">
+        <field id="tpd3" name="Nom" width="193" order="0"/>
+        <field id="tpd4" name="Date de début" width="202" order="1"/>
+        <field id="tpd5" name="Date de fin" width="245" order="2"/>
+        <field id="tpd15" name="Notes" width="20" order="3"/>
+        <option id="filter.completedTasks" value="false"/>
+        <option id="filter.dueTodayTasks" value="false"/>
+        <option id="filter.overdueTasks" value="false"/>
+        <option id="filter.inProgressTodayTasks" value="false"/>
+        <option id="color.recent"><![CDATA[#ff0000]]></option>
+    </view>
+    <view id="resource-table">
+        <field id="0" name="Nom" width="209" order="0"/>
+        <field id="1" name="Rôle par défaut" width="85" order="1"/>
+    </view>
+    <!-- -->
+    <calendars>
+        <day-types>
+            <day-type id="0"/>
+            <day-type id="1"/>
+            <default-week id="1" name="default" sun="1" mon="0" tue="0" wed="0" thu="0" fri="0" sat="1"/>
+            <only-show-weekends value="false"/>
+            <overriden-day-types/>
+            <days/>
+        </day-types>
+    </calendars>
+    <tasks empty-milestones="true">
+        <taskproperties>
+            <taskproperty id="tpd0" name="type" type="default" valuetype="icon"/>
+            <taskproperty id="tpd1" name="priority" type="default" valuetype="icon"/>
+            <taskproperty id="tpd2" name="info" type="default" valuetype="icon"/>
+            <taskproperty id="tpd3" name="name" type="default" valuetype="text"/>
+            <taskproperty id="tpd4" name="begindate" type="default" valuetype="date"/>
+            <taskproperty id="tpd5" name="enddate" type="default" valuetype="date"/>
+            <taskproperty id="tpd6" name="duration" type="default" valuetype="int"/>
+            <taskproperty id="tpd7" name="completion" type="default" valuetype="int"/>
+            <taskproperty id="tpd8" name="coordinator" type="default" valuetype="text"/>
+            <taskproperty id="tpd9" name="predecessorsr" type="default" valuetype="text"/>
+        </taskproperties>
+        <task id="0" uid="a5e5b00dc8834938abfc0517a780c6b2" name="Réunion de lancement" meeting="true" start="2025-03-10" duration="0" complete="0" expand="true">
+            <depend id="1" type="2" difference="0" hardness="Strong"/>
+        </task>
+        <task id="1" uid="65e690bc1464443f8c077a8f88cc91e8" name="Rédaction du dossier projet" color="#ff0000" meeting="false" start="2025-03-10" duration="14" complete="0" expand="true">
+            <depend id="5" type="2" difference="0" hardness="Strong"/>
+        </task>
+        <task id="5" uid="ee3a014b873a4ead930fe0fb646d5f6f" name="Dossier projet validé" meeting="true" start="2025-03-28" duration="0" complete="0" expand="true">
+            <depend id="3" type="2" difference="0" hardness="Strong"/>
+        </task>
+        <task id="3" uid="dba3ae913d8e4c29aef7328575aeec49" name="Spécification fonctionnelles" meeting="false" start="2025-03-28" duration="21" complete="0" expand="true">
+            <depend id="6" type="2" difference="0" hardness="Strong"/>
+        </task>
+        <task id="4" uid="5b06b89c239b4fbeb713cbc68e475796" name="Spécifications techniques" meeting="false" start="2025-04-04" duration="21" complete="0" expand="true">
+            <depend id="6" type="2" difference="0" hardness="Strong"/>
+        </task>
+        <task id="6" uid="8e4affa2cdf2444cab4dfa13966d515d" name="Spécification validées" meeting="true" start="2025-05-05" duration="0" complete="0" expand="true">
+            <depend id="7" type="2" difference="0" hardness="Strong"/>
+        </task>
+        <task id="7" uid="a991ec41a13244d580a38a48251ba74e" name="Réalisation" meeting="false" start="2025-05-05" duration="42" complete="0" expand="true">
+            <depend id="9" type="2" difference="0" hardness="Strong"/>
+        </task>
+        <task id="9" uid="7e574e02c87044d890575964b2e0a38a" name="Code et base de données livrés" meeting="true" start="2025-07-02" duration="0" complete="0" expand="true">
+            <depend id="10" type="2" difference="0" hardness="Strong"/>
+        </task>
+        <task id="10" uid="0f60bb60f7b64f4dad7842514faa7e3c" name="Test Unitaires" meeting="false" start="2025-07-02" duration="14" complete="0" expand="true">
+            <depend id="13" type="2" difference="0" hardness="Strong"/>
+        </task>
+        <task id="11" uid="cc4583ad2c7542998ab37e001eafdcc6" name="Test d'intégration" meeting="false" start="2025-07-02" duration="14" complete="0" expand="true">
+            <depend id="13" type="2" difference="0" hardness="Strong"/>
+        </task>
+        <task id="13" uid="9794760486e14b45a0ceb1bf5c691135" name="Test unitaires et d'intégration" meeting="true" start="2025-07-22" duration="0" complete="0" expand="true">
+            <depend id="20" type="2" difference="0" hardness="Strong"/>
+            <depend id="21" type="2" difference="0" hardness="Strong"/>
+        </task>
+        <task id="20" uid="556ab97a651440f8a537927025cbf219" name="Rédaction documentation" meeting="false" start="2025-07-22" duration="14" complete="0" expand="true">
+            <depend id="14" type="2" difference="0" hardness="Strong"/>
+            <depend id="22" type="2" difference="0" hardness="Strong"/>
+        </task>
+        <task id="21" uid="c4ac3e332c834142a2cda2fabe0d98ea" name="Formation" meeting="false" start="2025-07-22" duration="14" complete="0" expand="true">
+            <depend id="22" type="2" difference="0" hardness="Strong"/>
+        </task>
+        <task id="22" uid="5c6a6158647646db8d0e64d25ca55284" name="Finition rédaction documentation et formation" meeting="true" start="2025-08-11" duration="0" complete="0" expand="true"/>
+        <task id="14" uid="9628c87d43b94e6bb0e7bfe4e69e3c14" name="Procès verbaux de recette" meeting="false" start="2025-08-11" duration="14" complete="0" expand="true">
+            <depend id="17" type="2" difference="0" hardness="Strong"/>
+            <depend id="18" type="2" difference="0" hardness="Strong"/>
+        </task>
+        <task id="18" uid="09e3c089d556450b856b03068cea5ed1" name="PV de recette signé" meeting="true" start="2025-08-29" duration="0" complete="0" expand="true"/>
+        <task id="17" uid="e7c2e46eddc34cff851a0e4f566b3293" name="Déploiement et clôture" meeting="false" start="2025-08-29" duration="14" complete="0" expand="true">
+            <depend id="19" type="2" difference="0" hardness="Strong"/>
+        </task>
+        <task id="19" uid="ab8067d5032f4f72afb99852115a597d" name="Clôture" meeting="true" start="2025-09-18" duration="0" complete="0" expand="true"/>
+    </tasks>
+    <resources/>
+    <allocations/>
+    <vacations/>
+    <previous/>
+    <roles roleset-name="Default"/>
+</project>
