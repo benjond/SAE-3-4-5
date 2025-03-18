@@ -47,7 +47,7 @@ def fct_fixtures_load():
     (NULL,'Moto'),
     (NULL, 'Ski'),
     (NULL, 'Golf'),
-    (NULL, 'Jaradinage');
+    (NULL, 'Jardinage');
     '''
     mycursor.execute(sql)
 

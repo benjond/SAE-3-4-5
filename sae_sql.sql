@@ -105,7 +105,7 @@ INSERT INTO type_gant(id_type_gant,nom_type_gant) VALUES
                                                       (NULL,'Moto'),
                                                       (NULL, 'Ski'),
                                                       (NULL, 'Golf'),
-                                                      (NULL, 'Jaradinage');
+                                                      (NULL, 'Jardinage');
 
 INSERT INTO taille(id_taille,num_taille_fr,taille_us_homme,taille_us_femme,tour_de_main) VALUES
                                                                                              (1,6.5,'NULL','S',17.5),
