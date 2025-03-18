@@ -127,6 +127,7 @@ def edit_article():
         gant.image, 
         gant.couleur, 
         gant.poids, 
+        gant.stock, 
         type_gant.nom_type_gant AS libelle, 
         type_gant.id_type_gant AS type_article_id
     FROM gant
@@ -142,16 +143,9 @@ def edit_article():
     mycursor.execute(sql)
     types_article = mycursor.fetchall()
 
-    # sql = '''
-    # requête admin_article_6
-    # '''
-    # mycursor.execute(sql, id_article)
-    # declinaisons_article = mycursor.fetchall()
-
     return render_template('admin/article/edit_article.html'
                            ,article=article
                            ,types_article=types_article
-                         #  ,declinaisons_article=declinaisons_article
                            )
 
 
@@ -164,6 +158,7 @@ def valid_edit_article():
     type_article_id = request.form.get('type_article_id', '')
     prix = request.form.get('prix', '')
     description = request.form.get('description')
+    stock = request.form.get('stock', '')
     sql = '''SELECT image FROM gant WHERE id_gant = %s;'''
     mycursor.execute(sql, (id_article,))
     image_nom = mycursor.fetchone()
@@ -172,21 +167,20 @@ def valid_edit_article():
         if image_nom != "" and image_nom is not None and os.path.exists(
                 os.path.join(os.getcwd() + "/static/images/", image_nom)):
             os.remove(os.path.join(os.getcwd() + "/static/images/", image_nom))
-        # filename = secure_filename(image.filename)
         if image:
             filename = 'img_upload_' + str(int(2147483647 * random())) + '.png'
             image.save(os.path.join('static/images/', filename))
             image_nom = filename
 
     sql = '''  UPDATE gant
-        SET nom_gant = %s, image = %s, prix_gant = %s, type_gant_id = %s
+        SET nom_gant = %s, image = %s, prix_gant = %s, type_gant_id = %s, stock = %s
         WHERE id_gant = %s; '''
-    mycursor.execute(sql, (nom, image_nom, prix, type_article_id, id_article))
+    mycursor.execute(sql, (nom, image_nom, prix, type_article_id, stock, id_article))
 
     get_db().commit()
     if image_nom is None:
         image_nom = ''
-    message = u'article modifié , nom:' + nom + '- type_article :' + type_article_id + ' - prix:' + prix  + ' - image:' + image_nom + ' - description: ' + description
+    message = u'article modifié , nom:' + nom + '- type_article :' + type_article_id + ' - prix:' + prix  + ' - image:' + image_nom + ' - description: ' + description + ' - stock: ' + stock
     flash(message, 'alert-success')
     return redirect('/admin/article/show')
 
