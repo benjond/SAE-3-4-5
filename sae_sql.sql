@@ -59,6 +59,8 @@ CREATE TABLE gant (
                       fournisseur VARCHAR(255) NOT NULL,
                       marque VARCHAR(255) NOT NULL,
                       stock INT NOT NULL DEFAULT 0,
+                      nb_notes INT NOT NULL DEFAULT 0,
+                      moyenne_notes_gant DECIMAL(10, 2) DEFAULT 0.00,
                       image VARCHAR(255) NOT NULL,
                       CONSTRAINT fk_gant_taille FOREIGN KEY (taille_id) REFERENCES taille(id_taille),
                       CONSTRAINT fk_gant_type_gant FOREIGN KEY (type_gant_id) REFERENCES type_gant(id_type_gant)
@@ -83,6 +85,26 @@ CREATE TABLE ligne_panier (
                               date_ajout DATE NOT NULL,
                               CONSTRAINT fk_ligne_panier_utilisateur FOREIGN KEY (utilisateur_id) REFERENCES utilisateur(id_utilisateur),
                               CONSTRAINT fk_ligne_panier_gant FOREIGN KEY (gant_id) REFERENCES gant(id_gant)
+);
+
+CREATE TABLE commentaire_gant (
+                            commentaire_gant_id INT PRIMARY KEY AUTO_INCREMENT,
+                            commentaire TEXT,
+                            utilisateur_id INT NOT NULL,
+                            gant_id INT NOT NULL,
+                            date_redaction DATE NOT NULL,
+                            valider TINYINT(1) DEFAULT 0,
+                            CONSTRAINT fk_commentaire_utilisateur FOREIGN KEY (utilisateur_id) REFERENCES utilisateur(id_utilisateur),
+                            CONSTRAINT fk_commentaire_gant FOREIGN KEY (gant_id) REFERENCES gant(id_gant)
+);
+
+CREATE TABLE note_gant (
+                            note_gant_id INT PRIMARY KEY AUTO_INCREMENT,
+                            note INT NOT NULL,
+                            utilisateur_id INT NOT NULL,
+                            gant_id INT NOT NULL,
+                            CONSTRAINT fk_note_utilisateur FOREIGN KEY (utilisateur_id) REFERENCES utilisateur(id_utilisateur),
+                            CONSTRAINT fk_note_gant FOREIGN KEY (gant_id) REFERENCES gant(id_gant)
 );
 
 INSERT INTO utilisateur(id_utilisateur,login,email,password,role,nom,est_actif) VALUES

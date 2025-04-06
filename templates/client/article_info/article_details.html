@@ -9,7 +9,7 @@
 <div class="container">
     <div class="text-center card w-auto">
          <h2 class="card-title">
-             <span style="color: #0b2e13">{{ article.nom }}</span> &nbsp;{{ article.prix }} €
+             <span style="color: #0b2e13">{{ article.nom_gant }}</span> &nbsp;{{ article.prix_gant }} €
          </h2>
         <div class="card-body">
         {%  if article.image is not none %}
@@ -31,7 +31,7 @@
     <div class="row">
 
     <div class="col-12">
-        {% if article.moyenne_notes is not defined or  article.nb_notes is not defined or  article.moyenne_notes == None %}
+        {% if article.moyenne_notes_gant is not defined or  article.nb_notes is not defined or  article.moyenne_notes_gant == None %}
             <strong>Pas de Note</strong>
         {% else %}
             <strong>Note moyenne de cet article : {{ article.moyenne_notes }}</strong>&nbsp;({{ article.nb_notes }} note(s))
@@ -84,8 +84,8 @@
   <div class="row" style="background-color: #faf1d7">
       <div class="col-12">
       {% if nb_commentaires.nb_commentaires_total is not defined or nb_commentaires.nb_commentaires_utilisateur is not defined %}
-         <strong>NB commentaire(s) not defined</strong>
-                {% else %}
+        <strong>NB commentaire(s) not defined</strong>
+            {% else %}
             <strong>Nombre de commentaire(s) : {{ nb_commentaires.nb_commentaires_utilisateur }} commentaire(s) / 3 maxi pour un article acheté </strong><br>
             <strong>Nombre de commentaire(s) total :  {{nb_commentaires.nb_commentaires_total }}</strong><br>
           {% if nb_commentaires.nb_commentaires_utilisateur_valide is not defined or nb_commentaires.nb_commentaires_total_valide is not defined %}
@@ -95,17 +95,18 @@
           {% endif %}
         {% endif %}
       </div>
-      {% if commandes_articles.nb_commandes_article is defined and commandes_articles.nb_commandes_article > 0 and
+      
+      {% if commandes_articles.nb_commandes_article is defined and
             ((nb_commentaires.nb_commentaires_utilisateur is defined and nb_commentaires.nb_commentaires_utilisateur <3) or nb_commentaires.nb_commentaires_utilisateur is not defined) %}
-          <form  action="/client/commentaire/add"   method="post">
+            <form action="/client/commentaire/add" method="post">
                 <div class="col">
-                  <label for="input_commentaire" class="form-label">Mettez un commentaire sur cet article : </label>
-                     <textarea name="commentaire" class="form-control" aria-label="Votre commentaire" id="input_commentaire"  placeholder="Votre commentaire"></textarea>
+                    <label for="input_commentaire" class="form-label">Mettez un commentaire sur cet article : </label>
+                    <textarea name="commentaire" class="form-control" aria-label="Votre commentaire" id="input_commentaire"  placeholder="Votre commentaire"></textarea>
                 </div>
               <input type="hidden" name="action" value="add_commentaire">
               <input type="hidden" name="id_article" value="{{ article.id_article }}">
-                <form  action="/client/comment/add"  style="display: inline-block;"  method="post" >
-                        <button class="btn btn-primary mt-2" > Ajouter un commentaire </button>
+                <form action="/client/commentaire/add"  style="display: inline-block;"  method="post" >
+                    <button class="btn btn-primary mt-2" > Ajouter un commentaire </button>
                 </form>
             </form>
         {% else %}
@@ -131,7 +132,7 @@
 
                 {% for commentaire in commentaires %}
                     <tr>
-                        <td>{{ commentaire.nom }}({{ commentaire.id_utilisateur }})</td>
+                        <td>{{ commentaire.nom }}({{ commentaire.utilisateur_id }})</td>
                         <td>{% if commentaire.utilisateur_id == 1 %}
                             <span style="color: red">(réponse de l'administrateur du site (webmaster) ) :</span>
                             {% endif %}
@@ -140,15 +141,15 @@
                             <span style="color: red">(v)</span>
                             {% endif %}
                         </td>
-{#                        <td>{{ commentaire.note }}#}
-{#                        {{ commentaire.__dict__ }}#}
-{#                        </td>#}
+                        <td>{{ commentaire.note }}
+                       {{ commentaire.__dict__ }}
+                       </td>
                         <td>
-                            {% if commentaire.id_utilisateur == session['id_user'] %}
+                            {% if commentaire.utilisateur_id == session['id_user'] %}
                                   <form  action="/client/commentaire/delete"  style="display: inline-block;"  method="post" >
-                                      <input type="hidden" name="id_article" value="{{ commentaire.id_article }}">
-                                      <input type="hidden" name="id_utilisateur" value="{{ commentaire.id_utilisateur }}">
-                                      <input type="hidden" name="date_publication" value="{{ commentaire.date_publication }}">
+                                      <input type="hidden" name="id_article" value="{{ commentaire.gant_id }}">
+                                      <input type="hidden" name="utilisateur_id" value="{{ commentaire.utilisateur_id }}">
+                                      <input type="hidden" name="date_redaction" value="{{ commentaire.date_redaction }}">
                                       <button class="btn btn-primary" > supprimer </button>
                                   </form>
                             {% endif %}

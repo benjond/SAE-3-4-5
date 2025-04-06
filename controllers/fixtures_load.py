@@ -10,9 +10,13 @@ fixtures_load = Blueprint('fixtures_load', __name__,
 @fixtures_load.route('/base/init')
 def fct_fixtures_load():
     mycursor = get_db().cursor()
-    sql='''DROP TABLE IF EXISTS ligne_panier, ligne_commande, gant, taille, type_gant, commande, etat, utilisateur;'''
-
+    ## TODO : Enlever le Quick fix sans obtenir l'erreur 'Cannot delete or update a parent row: a foreign key constraint fails'
+    mycursor.execute('SET FOREIGN_KEY_CHECKS = 0;') ## Quick fix.
+    sql='''DROP TABLE IF EXISTS ligne_panier, ligne_commande, gant, taille, type_gant, commande, etat, utilisateur, note_gant, commentaire_gant;'''
     mycursor.execute(sql)
+    mycursor.execute('SET FOREIGN_KEY_CHECKS = 1;')
+    
+    ## Table Utilisateur
     sql='''
     CREATE TABLE utilisateur (
                                  id_utilisateur INT PRIMARY KEY AUTO_INCREMENT,
@@ -25,6 +29,8 @@ def fct_fixtures_load():
     ) DEFAULT CHARSET utf8;
     '''
     mycursor.execute(sql)
+    
+    ## Valeur Utilisateur
     sql=''' 
     INSERT INTO utilisateur(id_utilisateur,login,email,password,role,nom,est_actif) VALUES 
     (1,'admin','admin@admin.fr','pbkdf2:sha256:1000000$eQDrpqICHZ9eaRTn$446552ca50b5b3c248db2dde6deac950711c03c5d4863fe2bd9cef31d5f11988','ROLE_admin','admin','1'),
@@ -33,7 +39,7 @@ def fct_fixtures_load():
     '''
     mycursor.execute(sql)
 
-
+    ## Table Type_gant
     sql=''' 
     CREATE TABLE type_gant(
         id_type_gant INT AUTO_INCREMENT,
@@ -42,6 +48,8 @@ def fct_fixtures_load():
     )  DEFAULT CHARSET utf8;  
     '''
     mycursor.execute(sql)
+    
+    ## Valeur Type_gant
     sql=''' 
     INSERT INTO type_gant(id_type_gant, nom_type_gant) VALUES 
     (NULL,'Moto'),
@@ -51,7 +59,7 @@ def fct_fixtures_load():
     '''
     mycursor.execute(sql)
 
-
+    ## Table Etat
     sql=''' 
     CREATE TABLE etat (
         id_etat INT AUTO_INCREMENT,
@@ -60,12 +68,17 @@ def fct_fixtures_load():
     )  DEFAULT CHARSET=utf8;  
     '''
     mycursor.execute(sql)
+    
+    ## Valeur Etat
     sql = ''' 
     INSERT INTO etat(id_etat, libelle_etat) VALUES 
     (1,'En cours de préparation'),
     (2,'Expédiée');
      '''
     mycursor.execute(sql)
+    
+    
+    ## Table Taille
     sql = '''
         CREATE TABLE taille (
             id_taille INT PRIMARY KEY AUTO_INCREMENT,
@@ -77,6 +90,7 @@ def fct_fixtures_load():
         '''
     mycursor.execute(sql)
 
+    ## Valeur Taille
     sql = '''
     INSERT INTO taille(id_taille,num_taille_fr,taille_us_homme,taille_us_femme,tour_de_main) VALUES
                                                                                              (1,6.5,'NULL','S',17.5),
@@ -86,13 +100,11 @@ def fct_fixtures_load():
                                                                                              (5,8.5,'M','XXL',23),
                                                                                              (6,9,'L','NULL',24),
                                                                                              (7,9.5,'XL','NULL',25.5),
-                                                                                             (8,10,'XXL','NULL',27);
-                                                                                             
-                                                                                             
+                                                                                             (8,10,'XXL','NULL',27);                                                                                                                                                                                       
     '''
-
     mycursor.execute(sql)
 
+    ## Table Gant
     sql='''
     CREATE TABLE gant (
         id_gant INT PRIMARY KEY AUTO_INCREMENT,
@@ -106,6 +118,8 @@ def fct_fixtures_load():
         fournisseur VARCHAR(255) NOT NULL,
         marque VARCHAR(255) NOT NULL,
         stock INT NOT NULL DEFAULT 0,
+        nb_notes INT NOT NULL DEFAULT 0,
+        moyenne_notes_gant DECIMAL(10, 2) DEFAULT 0.00,
         image VARCHAR(255) NOT NULL,
         CONSTRAINT fk_gant_taille FOREIGN KEY (taille_id) REFERENCES taille(id_taille),
         CONSTRAINT fk_gant_type_gant FOREIGN KEY (type_gant_id) REFERENCES type_gant(id_type_gant)
@@ -113,6 +127,8 @@ def fct_fixtures_load():
     )  DEFAULT CHARSET=utf8;  
      '''
     mycursor.execute(sql)
+    
+    ## Valeur Gant
     sql = ''' 
     INSERT INTO gant(nom_gant,poids,couleur,prix_gant,taille_id,type_gant_id,fournisseur,marque,stock,image) VALUES
                                                                                                                ('Gants moto dainese ','120','Noir/rouge','85','1','1','Dainese SpA','dainese','3','gant_moto1.jpg'),
@@ -138,7 +154,7 @@ def fct_fixtures_load():
     '''
     mycursor.execute(sql)
 
-
+    ## Table Commande
     sql = '''
     CREATE TABLE commande (
         id_commande INT PRIMARY KEY AUTO_INCREMENT,
@@ -151,6 +167,7 @@ def fct_fixtures_load():
     '''
     mycursor.execute(sql)
 
+    ## Valeur Commande
     sql = ''' 
     INSERT INTO commande(id_commande, date_achat, utilisateur_id, etat_id) VALUES
                                                                            (2, '2023-12-15', 3, 1),
@@ -158,6 +175,7 @@ def fct_fixtures_load():
     '''
     mycursor.execute(sql)
 
+    ## Table Ligne_commande
     sql = ''' 
     CREATE TABLE ligne_commande(
         commande_id INT NOT NULL,
@@ -170,6 +188,7 @@ def fct_fixtures_load():
     '''
     mycursor.execute(sql)
 
+    ## Valeur Ligne_commande
     sql = '''
     INSERT INTO ligne_commande(commande_id, gant_id, prix, quantite) VALUES
                                                                      (2, 6, 140, 1),
@@ -179,6 +198,7 @@ def fct_fixtures_load():
     '''
     mycursor.execute(sql)
 
+    ## Table Ligne_commande
     sql = '''
     CREATE TABLE ligne_panier(
         utilisateur_id INT NOT NULL,
@@ -191,6 +211,7 @@ def fct_fixtures_load():
          '''
     mycursor.execute(sql)
     
+    ## Table Ligne_commande
     sql = '''
     INSERT INTO ligne_panier(utilisateur_id, gant_id, quantite, date_ajout) VALUES
     (1,1,1,'2021-01-01'),
@@ -200,6 +221,52 @@ def fct_fixtures_load():
     '''
     mycursor.execute(sql)
 
+    ## Table Commentaire
+    sql = '''
+    CREATE TABLE commentaire_gant (
+        commentaire_gant_id INT PRIMARY KEY AUTO_INCREMENT,
+        commentaire TEXT,
+        utilisateur_id INT NOT NULL,
+        gant_id INT NOT NULL,
+        date_redaction DATE NOT NULL,
+        valider TINYINT(1) DEFAULT 0,
+        CONSTRAINT fk_commentaire_utilisateur FOREIGN KEY (utilisateur_id) REFERENCES utilisateur(id_utilisateur),
+        CONSTRAINT fk_commentaire_gant FOREIGN KEY (gant_id) REFERENCES gant(id_gant)
+    );
+    '''
+    mycursor.execute(sql)
+
+    ## Valeur Commentaire
+    sql = '''
+    INSERT INTO commentaire_gant(commentaire, utilisateur_id, gant_id, date_redaction, valider) 
+    SELECT 'Bienvenu dans la section commentaire' AS commentaire, 1 AS utilisateur_id, id_gant AS gant_id, CURDATE() AS date_redaction, 1 AS valider 
+    FROM gant;
+    '''
+    mycursor.execute(sql)
+
+
+    ## Table Note
+    sql='''
+    CREATE TABLE note_gant (
+        note_gant_id INT PRIMARY KEY AUTO_INCREMENT,
+        note INT NOT NULL,
+        utilisateur_id INT NOT NULL,
+        gant_id INT NOT NULL,
+        CONSTRAINT fk_note_utilisateur FOREIGN KEY (utilisateur_id) REFERENCES utilisateur(id_utilisateur),
+        CONSTRAINT fk_note_gant FOREIGN KEY (gant_id) REFERENCES gant(id_gant)
+    );
+    '''
+    mycursor.execute(sql)
+
+    ## Valeur Note
+
+    sql = '''
+    INSERT INTO note_gant(note, utilisateur_id, gant_id) 
+    SELECT 1 AS note, 1 AS utilisateur_id, id_gant 
+    FROM gant;
+    '''
+    
+    mycursor.execute(sql)
 
     get_db().commit()
     return redirect('/')
