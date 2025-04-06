@@ -43,7 +43,7 @@
                     {% else %}
                     <tr>
                     {% endif %}
-                        <td>{{ commentaire.nom }}({{ commentaire.id_utilisateur }})</td>
+                        <td>{{ commentaire.nom }}({{ commentaire.utilisateur_id }})</td>
                         <td> {% if commentaire.utilisateur_id == session['id_user'] %}
                             <span style="color: red">(réponse de l'administrateur du site (webmaster) :</span>
                             {% endif %}

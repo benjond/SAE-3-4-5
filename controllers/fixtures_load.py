@@ -239,7 +239,7 @@ def fct_fixtures_load():
     ## Valeur Commentaire
     sql = '''
     INSERT INTO commentaire_gant(commentaire, utilisateur_id, gant_id, date_redaction, valider) 
-    SELECT 'Bienvenu dans la section commentaire' AS commentaire, 1 AS utilisateur_id, id_gant AS gant_id, CURDATE() AS date_redaction, 1 AS valider 
+    SELECT 'Bienvenu dans la section commentaire' AS commentaire, 1 AS utilisateur_id, id_gant AS gant_id, NOW() AS date_redaction, 1 AS valider 
     FROM gant;
     '''
     mycursor.execute(sql)

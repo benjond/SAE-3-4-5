@@ -16,22 +16,23 @@ def admin_article_details():
     
     ## Commentaire
     sql = '''
-        SELECT commentaire_gant.commentaire,commentaire_gant.gant_id,commentaire_gant.utilisateur_id, commentaire_gant.date_redaction,note_gant.note, utilisateur.nom
+        SELECT commentaire_gant.commentaire,commentaire_gant.gant_id,commentaire_gant.utilisateur_id, commentaire_gant.date_redaction,commentaire_gant.valider,note_gant.note, utilisateur.nom
         FROM commentaire_gant
         INNER JOIN note_gant ON commentaire_gant.utilisateur_id = note_gant.utilisateur_id AND commentaire_gant.gant_id = note_gant.gant_id
         INNER JOIN utilisateur ON commentaire_gant.utilisateur_id = utilisateur.id_utilisateur
         WHERE commentaire_gant.gant_id = %s
         ORDER BY commentaire_gant.date_redaction ASC
-    ''' ## gant_id ne marche pas, TODO : trouver la cause du probleme
+    '''
     mycursor.execute(sql, (id_article))    
     commentaires = {}
     commentaires = mycursor.fetchone()
+    print(commentaires)
 
 
     ## Article
     sql = '''
-        SELECT *
-        FROM gant
+        SELECT id_gant as id_article, nom_gant as nom, poids, couleur, prix_gant, description, taille_id, type_gant_id , fournisseur , marque, stock, nb_notes, moyenne_notes_gant, image 
+        FROM gant 
         WHERE id_gant = %s
     '''
     mycursor.execute(sql,(id_article))
@@ -104,7 +105,7 @@ def admin_comment_valider():
     mycursor = get_db().cursor()
     sql = '''
         UPDATE commentaire_gant
-        SET valider = TRUE
+        SET valider = 1
         WHERE gant_id = %s
     '''
     mycursor.execute(sql, id_article)
